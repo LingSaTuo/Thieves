@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:id="@+id/play_list_loading"
+        android:layout_height="wrap_content">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.lingsatuo.widget.XTextView
+            android:layout_width="wrap_content"
+            android:id="@+id/playlist_avtivity_loading_error"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/playlist_rv"
+        android:visibility="gone"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

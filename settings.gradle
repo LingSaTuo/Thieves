@@ -1,0 +1,2 @@
+include ':app', ':lingwidget', ':lingapplication'
+

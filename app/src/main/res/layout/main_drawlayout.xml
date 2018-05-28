@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_draw_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:clickable="true"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="1dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBack"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/main_draw_root_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <RelativeLayout
+            android:id="@+id/main_draw_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentBottom="true"
+            android:background="@color/alpha">
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/main_draw_bottom"
+            android:background="@color/alpha"
+            android:fillViewport="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/main_draw_xxx"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:background="@color/alpha"
+                    android:padding="10dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="62dp"
+                        android:layout_height="62dp"
+                        android:layout_marginTop="50dp"
+                        android:src="@mipmap/user_icon" />
+
+                    <com.lingsatuo.widget.XTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="6dp"
+                        android:singleLine="true"
+                        android:text="unknown_userid"
+                        android:textColor="#ededed"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <com.lingsatuo.widget.XTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/main_draw_xxx"
+                    android:padding="24dp"
+                    android:text="@string/develop_v"
+                    android:textColor="@color/button_textColor"
+                    android:textSize="24sp" />
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

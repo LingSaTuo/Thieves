@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:layout_height="match_parent"
+    android:focusable="true">
+    <ImageView
+        android:layout_width="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/back2"
+        android:id="@+id/main_play_card_icon"
+        android:foreground="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_height="match_parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="@color/main_play_card_back"
+        android:layout_alignParentBottom="true"
+        android:layout_height="60dp">
+        <ImageView
+            android:layout_width="120dp"
+            android:id="@+id/play_pause"
+            android:src="@mipmap/toplay"
+            style="@style/ImageViewStyle"
+            android:layout_centerInParent="true"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:id="@+id/last"
+            android:src="@mipmap/last"
+            style="@style/ImageViewStyle"
+            android:layout_centerInParent="true"
+            android:layout_toStartOf="@id/play_pause"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:id="@+id/next"
+            android:src="@mipmap/next"
+            style="@style/ImageViewStyle"
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@id/play_pause" />
+        <com.lingsatuo.widget.MusicProgressBarH
+            android:layout_width="match_parent"
+            android:id="@+id/card_progress"
+            android:layout_alignParentBottom="true"
+            android:layout_height="2dp" />
+    </RelativeLayout>
+</RelativeLayout>

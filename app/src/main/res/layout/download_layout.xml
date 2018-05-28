@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_card"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.lingsatuo.widget.XTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="选择品质"
+        android:textColor="@color/button_textColor" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/dl_m4a_l"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <com.lingsatuo.widget.XTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="14dp"
+                    android:gravity="center_vertical"
+                    android:text="低品质"
+                    android:textColor="@color/button_textColor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dl_m4a"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <com.lingsatuo.widget.XTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="14dp"
+                    android:gravity="center_vertical"
+                    android:text="流畅"
+                    android:textColor="@color/button_textColor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dl_ogg"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <com.lingsatuo.widget.XTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="14dp"
+                    android:gravity="center_vertical"
+                    android:text="OGG"
+                    android:textColor="@color/button_textColor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dl_mp3"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <com.lingsatuo.widget.XTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="14dp"
+                    android:gravity="center_vertical"
+                    android:text="一般"
+                    android:textColor="@color/button_textColor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dl_mp3h"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <com.lingsatuo.widget.XTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="14dp"
+                    android:gravity="center_vertical"
+                    android:text="高"
+                    android:textColor="@color/button_textColor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dl_fac"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <com.lingsatuo.widget.XTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="14dp"
+                    android:gravity="center_vertical"
+                    android:text="极高"
+                    android:textColor="@color/button_textColor_Dark"  />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dl_ape"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <com.lingsatuo.widget.XTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="14dp"
+                    android:gravity="center_vertical"
+                    android:text="无损"
+                    android:textColor="@color/button_textColor_Dark" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

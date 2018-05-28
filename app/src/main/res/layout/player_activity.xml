@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBack">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ling_toolbar_background"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+            <ImageView
+                style="@style/ImageViewStyle"
+                android:padding="10dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/menu"
+                android:layout_gravity="start|center_vertical" />
+
+                <com.lingsatuo.widget.XTextView
+                    android:id="@+id/title"
+                    android:singleLine="true"
+                    android:layout_width="wrap_content"
+                    android:paddingEnd="46dp"
+                    android:textColor="@color/button_textColor"
+                    android:paddingStart="46dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+                <ImageView
+                    android:layout_gravity="end|center_vertical"
+                    style="@style/ImageViewStyle"
+                    android:id="@+id/play_activity_share"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@mipmap/share" />
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <include layout="@layout/play_activity_content" />
+        </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</FrameLayout>

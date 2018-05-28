@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+    <View
+        android:layout_width="match_parent"
+        android:id="@+id/a___a"
+        android:layout_height="80dp"/>
+    <android.support.v7.widget.CardView
+        android:layout_width="0dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginEnd="48dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/play_card_root"
+        app:cardCornerRadius="0dp"
+        android:padding="0dp"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardElevation="10dp"
+        android:layout_height="0dp" >
+        <ImageView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:foreground="?attr/selectableItemBackground"
+            android:id="@+id/player_activity_album_icon"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@mipmap/back2"
+            />
+    </android.support.v7.widget.CardView>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_centerHorizontal="true"
+    android:paddingBottom="20dp"
+    android:gravity="center_horizontal"
+    android:layout_below="@id/play_card_root"
+    android:paddingTop="20dp"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:id="@+id/add_like_more"
+        android:layout_height="0dp">
+        <include
+            layout="@layout/play_add_like_more"
+            tools:ignore="IncludeLayoutParam" />
+    </LinearLayout>
+    <include
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        layout="@layout/play_activity_progressbar" />
+    <include
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        layout="@layout/play_bottm_coll" />
+</LinearLayout>
+</RelativeLayout>

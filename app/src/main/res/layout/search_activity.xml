@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/colorBack"
+    android:layout_height="match_parent"
+    android:id="@+id/root"
+    >
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:background="@drawable/ling_toolbar_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" >
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/search_loading"
+                android:visibility="gone"
+                android:gravity="center"
+                android:layout_height="match_parent">
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <com.lingsatuo.widget.XTextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/search_error"
+                    android:padding="24dp"
+                    android:textColor="@color/button_textColor"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:id="@+id/search_list"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+    <com.arlib.floatingsearchview.FloatingSearchView
+        android:layout_width="match_parent"
+        android:id="@+id/searchview"
+        android:backgroundTint="@color/play_activity_pop_back"
+        app:floatingSearch_leftActionMode="showHamburger"
+        app:floatingSearch_showSearchKey="false"
+        app:floatingSearch_dismissOnOutsideTouch="true"
+        app:floatingSearch_close_search_on_keyboard_dismiss="true"
+        android:layout_height="wrap_content"/>
+</FrameLayout>

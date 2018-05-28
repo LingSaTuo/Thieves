@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBack">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ling_toolbar_background"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <com.lingsatuo.widget.XTextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:paddingEnd="46dp"
+                    android:paddingStart="46dp"
+                    android:singleLine="true"
+                    android:textColor="@color/button_textColor" />
+
+                <ImageView
+                    android:id="@+id/main_search"
+                    style="@style/ImageViewStyle"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="5dp"
+                    android:padding="10dp"
+                    android:src="@mipmap/searchicon" />
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.lingsatuo.widget.XWebView
+                    android:id="@+id/xwebview"
+                    android:layout_width="1px"
+                    android:layout_height="1px" />
+
+                <include layout="@layout/main_content" />
+            </LinearLayout>
+        </ScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+</FrameLayout>

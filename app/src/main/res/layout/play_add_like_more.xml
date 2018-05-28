@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_gravity="center_vertical"
+    android:layout_height="match_parent">
+    <ImageView
+        style="@style/ImageViewStyle"
+        android:scaleType="centerInside"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:src="@mipmap/add" />
+    <ImageView
+        style="@style/ImageViewStyle"
+        android:scaleType="centerInside"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:src="@mipmap/like" />
+    <ImageView
+        android:layout_weight="1"
+        android:id="@+id/player_activity_download"
+        style="@style/ImageViewStyle"
+        android:padding="10dp"
+        android:src="@mipmap/download"/>
+    <ImageView
+        android:layout_weight="1"
+        style="@style/ImageViewStyle"
+        android:padding="10dp"
+        android:src="@mipmap/more"/>
+</LinearLayout>

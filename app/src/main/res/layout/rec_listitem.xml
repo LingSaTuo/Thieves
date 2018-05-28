@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="140dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:singleLine="true"
+        android:layout_margin="8dp"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/button_textColor"
+        android:id="@+id/playlist_title"
+        android:textSize="12sp"
+        android:layout_height="wrap_content" />
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_above="@id/playlist_title"
+        android:foreground="?attr/selectableItemBackground"
+        android:id="@+id/play_rec_list_card"
+        android:clickable="true"
+        android:layout_height="match_parent"
+        android:focusable="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:id="@+id/playlist_icon"
+            android:scaleType="centerCrop"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_width="match_parent"
+            android:background="@drawable/playitem"
+            android:layout_height="60dp"/>
+        <com.lingsatuo.widget.XTextView
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="4dp"
+            android:textSize="10sp"
+            android:textColor="@color/button_textColor_Dark"
+            android:id="@+id/playlist_amount"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="10dp"
+            android:src="@mipmap/amount"
+            android:layout_margin="4dp"
+            android:scaleType="centerCrop"
+            android:layout_toStartOf="@id/playlist_amount"
+            android:layout_height="10dp" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

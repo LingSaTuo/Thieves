@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="develop_v">《开发版预览》，正式版将与该界面类似，但具备更多功能，更少BUG，现版本不代表最后品质/样式，仅供测试，如遇到崩溃请反馈给QQ:1617685714或QQ:591972913，多谢！！</string>
+</resources>
