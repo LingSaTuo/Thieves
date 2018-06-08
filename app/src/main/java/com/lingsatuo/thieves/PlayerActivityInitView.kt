@@ -2,16 +2,20 @@ package com.lingsatuo.thieves
 
 import android.annotation.SuppressLint
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Handler
 import android.os.Message
 import android.support.v7.widget.AppCompatSeekBar
 import android.support.v7.widget.CardView
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.lingsatuo.donttouchme.are_u_understand.do_not_touch_me_yet.plz_go_back.uh_huh.what_are_u_doing.fucking_deep.are_u_gay.why_dont_u_go_back.I_LOVE_U
 import com.lingsatuo.getqqmusic.GetItemInfo
 import com.lingsatuo.getqqmusic.MusicItem
 import com.lingsatuo.service.MusicService
@@ -19,6 +23,7 @@ import com.lingsatuo.utils.MusicDownPop
 import com.lingsatuo.utils.PlayerActivityShowList
 import com.lingsatuo.widget.MusicProgressBarH
 import com.lingsatuo.widget.XTextView
+import jp.wasabeef.glide.transformations.BlurTransformation
 import java.text.DecimalFormat
 import java.util.*
 
@@ -26,10 +31,14 @@ import java.util.*
 class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
     private var seekBar: AppCompatSeekBar? = null
     private var ontouch = false;
+    private var dont_touch_me:(View)->Unit={v->
+        I_LOVE_U.onClick(playerActivity,v)
+    }
     private val statelistener: (Controller.Type) -> Unit = { type ->
         val item = MusicService.instance?.item
         if (item != null) {
             playerActivity.findViewById<XTextView>(R.id.title).text = item.title
+            playerActivity.findViewById<XTextView>(R.id.subtitle).text = item.getSingers()
         }
         if (type == Controller.Type.PLAY) {
             playerActivity.findViewById<ImageView>(R.id.player_activity_play_pause).setImageResource(R.mipmap.topause)
@@ -50,6 +59,7 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
     val df = DecimalFormat("####00")
     private val timer = Timer()
     fun initView() {
+        playerActivity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         val cardview = playerActivity.findViewById<CardView>(R.id.play_card_root)
         cardview.layoutParams.width = (playerActivity.windowManager.defaultDisplay.width * 0.8f).toInt()
         cardview.layoutParams.height = cardview.layoutParams.width
@@ -108,6 +118,11 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
                 .error(R.mipmap.back2)
                 .priority(Priority.HIGH)
                 .into(playerActivity.findViewById(R.id.player_activity_album_icon))
+        Glide.with(playerActivity)
+                .load(item.albumicon)
+                .bitmapTransform(BlurTransformation(playerActivity, 25), CenterCrop(playerActivity))
+                .priority(Priority.HIGH)
+                .into(playerActivity.findViewById(R.id.player_activity_background_image))
     }
     private fun bandProgress() {
         val task: TimerTask
@@ -172,8 +187,40 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
         playerActivity.findViewById<ImageView>(R.id.player_activity_show_list).setOnClickListener {
             PlayerActivityShowList(playerActivity).show(playerActivity.findViewById<CardView>(R.id.play_card_root))
         }
-        playerActivity.findViewById<ImageView>(R.id.play_activity_share).setOnClickListener {
+        dont_touch_me()
+    }
 
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private fun dont_touch_me(){
+        playerActivity.findViewById<ImageView>(R.id.play_activity_share).setOnClickListener(dont_touch_me)
+        playerActivity.findViewById<ImageView>(R.id.play_activity_add).setOnClickListener(dont_touch_me)
+        playerActivity.findViewById<ImageView>(R.id.play_activity_menu).setOnClickListener(dont_touch_me)
+        playerActivity.findViewById<ImageView>(R.id.play_activity_like).setOnClickListener(dont_touch_me)
+        playerActivity.findViewById<ImageView>(R.id.play_activity_loop).setOnClickListener(dont_touch_me)
+        playerActivity.findViewById<ImageView>(R.id.play_activity_more).setOnClickListener(dont_touch_me)
     }
 }

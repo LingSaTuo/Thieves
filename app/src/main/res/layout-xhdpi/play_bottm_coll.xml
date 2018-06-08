@@ -11,17 +11,20 @@
         android:layout_weight="1"
         android:padding="30dp"
         android:id="@+id/player_activity_show_list"
+        android:tint="@color/colorPrimary"
         android:src="@mipmap/list" />
     <ImageView
         style="@style/ImageViewStyle"
         android:layout_weight="1"
         android:padding="30dp"
         android:id="@+id/player_activity_last"
+        android:tint="@color/colorPrimary"
         android:src="@mipmap/last" />
     <ImageView
         style="@style/ImageViewStyle"
         android:layout_weight="1"
         android:padding="30dp"
+        android:tint="@color/colorPrimary"
         android:id="@+id/player_activity_play_pause"
         android:src="@mipmap/toplay"/>
     <ImageView
@@ -29,11 +32,13 @@
         android:layout_weight="1"
         android:src="@mipmap/next"
         android:padding="30dp"
+        android:tint="@color/colorPrimary"
         android:id="@+id/player_activity_next"/>
     <ImageView
         style="@style/ImageViewStyle"
         android:layout_weight="1"
         android:padding="30dp"
+        android:id="@+id/play_activity_loop"
         android:tint="@color/colorAccent"
         android:src="@mipmap/loop_"/>
 </LinearLayout>

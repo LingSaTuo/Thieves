@@ -16,7 +16,7 @@
     <com.lingsatuo.widget.XTextView
         android:layout_width="wrap_content"
         android:singleLine="true"
-        android:textColor="@color/button_textColor"
+        android:textColor="@color/button_textColor_Dark"
         android:textSize="12sp"
         android:text="00:00"
         android:layout_marginStart="24dp"
@@ -27,7 +27,7 @@
     <com.lingsatuo.widget.XTextView
         android:layout_width="wrap_content"
         android:singleLine="true"
-        android:textColor="@color/button_textColor"
+        android:textColor="@color/button_textColor_Dark"
         android:textSize="12sp"
         android:layout_alignParentEnd="true"
         android:layout_below="@id/play_activity_seekbar"

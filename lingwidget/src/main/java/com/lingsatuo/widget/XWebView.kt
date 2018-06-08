@@ -35,13 +35,13 @@ class XWebView : WebView {
     constructor(context: Context, attributeSet: AttributeSet?, def: Int) : super(context, attributeSet, def) {
         settings.javaScriptEnabled = true
         settings.loadWithOverviewMode = true
-        settings.savePassword = true
-        settings.saveFormData = true
+        settings.savePassword = false
+        settings.saveFormData = false
         settings.allowFileAccess = true
         settings.useWideViewPort = true
         settings.setSupportZoom(true)
-        settings.userAgentString = "\tMozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0"
-
+        settings.userAgentString = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0"
+        settings.loadsImagesAutomatically = false
         scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
         settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
         settings.builtInZoomControls = false

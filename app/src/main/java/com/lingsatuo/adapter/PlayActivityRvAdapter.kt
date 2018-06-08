@@ -57,24 +57,13 @@ class ItemViewII(private var view: View, listener:(Int, View)->Unit): RecyclerVi
 
     fun setMusicGroup(musicitem: MusicItem) {
         setTitle(musicitem.title)
-        setSubTitle(musicitem.singer+" - "+musicitem.album)
+        setSubTitle(musicitem.getSingers()+" - "+musicitem.album)
         if (MusicService.instance?.item?.mid?.equals(musicitem.mid) == true){
             view.findViewById<ImageView>(R.id.playlist_item_more).visibility = View.VISIBLE
             view.findViewById<ImageView>(R.id.playlist_item_more).setImageResource(R.mipmap.playing)
         }else
         view.findViewById<ImageView>(R.id.playlist_item_more).visibility = View.GONE
     }
-
-    fun setIcon(uri: String) {
-//        val icon = view.findViewById<ImageView>(R.id.playlist_icon)
-//        Glide.with(view.context)
-//                .load(uri)
-//                .asBitmap()
-//                .placeholder(R.mipmap.loading)
-//                .priority(Priority.HIGH)
-//                .into(icon)
-    }
-
     //    fun getIcon() = view.findViewById<ImageView>(R.id.playlist_icon)!!
     fun setTitle(title: String) {
         view.findViewById<TextView>(R.id.playlist_item_title).text = title

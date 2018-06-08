@@ -85,7 +85,7 @@ class ItemViewI(private var view: View, listener: (Int, View) -> Unit) : Recycle
 
     fun setMusicGroup(musicitem: MusicItem) {
         setTitle(musicitem.title)
-        setSubTitle(musicitem.singer + " - " + musicitem.album)
+        setSubTitle(musicitem.getSingers() + " - " + musicitem.album)
     }
 
     fun setIcon(uri: String) {

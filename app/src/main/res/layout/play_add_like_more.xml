@@ -7,13 +7,17 @@
     <ImageView
         style="@style/ImageViewStyle"
         android:scaleType="centerInside"
+        android:tint="@color/colorPrimary"
         android:layout_weight="1"
         android:padding="10dp"
+        android:id="@+id/play_activity_add"
         android:src="@mipmap/add" />
     <ImageView
         style="@style/ImageViewStyle"
         android:scaleType="centerInside"
         android:layout_weight="1"
+        android:tint="@color/colorPrimary"
+        android:id="@+id/play_activity_like"
         android:padding="10dp"
         android:src="@mipmap/like" />
     <ImageView
@@ -21,10 +25,13 @@
         android:id="@+id/player_activity_download"
         style="@style/ImageViewStyle"
         android:padding="10dp"
-        android:src="@mipmap/download"/>
+        android:tint="@color/colorPrimary"
+        android:src="@mipmap/clone"/>
     <ImageView
         android:layout_weight="1"
         style="@style/ImageViewStyle"
         android:padding="10dp"
+        android:tint="@color/colorPrimary"
+        android:id="@+id/play_activity_more"
         android:src="@mipmap/more"/>
 </LinearLayout>

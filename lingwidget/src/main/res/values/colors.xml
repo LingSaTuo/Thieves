@@ -11,6 +11,7 @@
     <color name="colorPrimaryEnd_">#e6e6e6</color>
     <color name="colorPrimaryEnd">#ce9504</color>
     <color name="alpha">#2a3b3b3b</color>
+    <color name="player_alpha">#7d3b3b3b</color>
     <color name="card_back">#a9a9a9</color>
     <color name="main_play_card_back">#b2a9a9a9</color>
     <color name="play_activity_pop_back">#c9c9c9</color>

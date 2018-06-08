@@ -74,16 +74,16 @@ class MusicDownPop(private var activity: Activity,private var item: MusicItem) :
         val request = DownloadManager.Request(Uri.parse(url))
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
         request.setTitle(item.title)
-        request.setDescription("MusicOne下载")
+        request.setDescription("MusicOne克隆")
         val file = File(Environment.getExternalStorageDirectory(),"MusicOne/songs")
         if (!file.exists()){
             file.mkdirs()
         }
         var n = item.filename.split(".")
-        val df = File(file,item.title+"_"+item.singer+"."+(n[n.size-1]))
+        val df = File(file,item.title+"_"+item.getSingers()+"."+(n[n.size-1]))
         request.setDestinationUri(Uri.fromFile(df))
         val manager = activity.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         manager.enqueue(request)
-        Toast.makeText(activity,"已经提交系统下载",Toast.LENGTH_LONG).show()
+        Toast.makeText(activity,"已经提交系统处理",Toast.LENGTH_LONG).show()
     }
 }

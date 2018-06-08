@@ -9,6 +9,7 @@
     <ImageView
         style="@style/ImageViewStyle"
         android:layout_weight="1"
+        android:tint="@color/colorPrimary"
         android:padding="15dp"
         android:layout_margin="1dp"
         android:id="@+id/player_activity_show_list"
@@ -16,12 +17,14 @@
     <ImageView
         style="@style/ImageViewStyle"
         android:layout_weight="1"
+        android:tint="@color/colorPrimary"
         android:padding="15dp"
         android:id="@+id/player_activity_last"
         android:src="@mipmap/last" />
     <ImageView
         style="@style/ImageViewStyle"
         android:layout_weight="1"
+        android:tint="@color/colorPrimary"
         android:padding="15dp"
         android:id="@+id/player_activity_play_pause"
         android:src="@mipmap/toplay"/>
@@ -29,6 +32,7 @@
         style="@style/ImageViewStyle"
         android:layout_weight="1"
         android:src="@mipmap/next"
+        android:tint="@color/colorPrimary"
         android:padding="15dp"
         android:id="@+id/player_activity_next"/>
     <ImageView
@@ -36,5 +40,6 @@
         android:layout_weight="1"
         android:padding="15dp"
         android:tint="@color/colorAccent"
+        android:id="@+id/play_activity_loop"
         android:src="@mipmap/loop_"/>
 </LinearLayout>

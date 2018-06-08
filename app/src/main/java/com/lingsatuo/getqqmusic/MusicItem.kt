@@ -8,10 +8,25 @@ class MusicItem : Serializable {
     var album = ""//专辑
     var albumid = ""//专辑
     var albumicon = ""//专辑
-    var singer = ""//歌手
+    var singer = ArrayList<Singer>()//歌手
     var mid = ""//mid
     var singmid = ""//singmig
     var filename = ""//文件名
     var vkey = ""//Vkey
     override fun toString() = "$title   $href   $album  $singer  $mid  $singmid"
+    class Singer{
+        var singerid=""//歌手id
+        var singer=""//歌手名字
+        var singermid=""//歌手mid
+        var singerhref=""//歌手详情链接
+    }
+    fun getSingers():String{
+        val str = StringBuilder()
+        for (index in 0 until singer.size){
+            str.append(singer[index].singer)
+            if (index!=singer.size-1)
+                str.append(" 、 ")
+        }
+        return str.toString()
+    }
 }

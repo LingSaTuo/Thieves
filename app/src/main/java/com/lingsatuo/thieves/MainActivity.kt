@@ -68,7 +68,7 @@ class MainActivity : BaseActivity() {
                 .setCanceledOnTouchOutside(false)
     }
 
-    fun setTitle(str: String) {
+    private fun setTitle(str: String) {
         findViewById<XTextView>(R.id.title).text = str
     }
 

@@ -8,4 +8,5 @@ class MusicGroup :Serializable {
     var href=""//链接
     var amount = ""//播放次数
     var disstid = ""//disstid
+    var describe =""//歌单描述
 }

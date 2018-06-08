@@ -18,7 +18,15 @@ class ItemGet(private var html:String) {
         item.mid = element.attr("mid")
         item.href = element.select("a.js_song").attr("href")
         item.title = element.select("a.js_song").attr("title")
-        item.singer = element.select("a.singer_name").text()
+        val singerlist = element.select("a.singer_name")
+        for (singer in singerlist){
+            val sing = MusicItem.Singer()
+            sing.singer = singer.attr("title")
+            sing.singerid = singer.attr("data-singerid")
+            sing.singerhref = singer.attr("href")
+            sing.singermid = singer.attr("data-singermid")
+            item.singer.add(sing)
+        }
         item.album = element.select("div.songlist__album").select("a").text()
         item.albumid = element.select("div.songlist__album").select("a").attr("data-albummid")
         val strings = item.href.split("/")

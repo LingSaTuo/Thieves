@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBack">
+    android:background="@color/button_textColor">
+
+    <ImageView
+        android:id="@+id/player_activity_background_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/player_alpha">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
@@ -24,33 +30,53 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
-            <ImageView
-                style="@style/ImageViewStyle"
-                android:padding="10dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@mipmap/menu"
-                android:layout_gravity="start|center_vertical" />
 
-                <com.lingsatuo.widget.XTextView
-                    android:id="@+id/title"
-                    android:singleLine="true"
-                    android:layout_width="wrap_content"
-                    android:paddingEnd="46dp"
-                    android:textColor="@color/button_textColor"
-                    android:paddingStart="46dp"
-                    android:gravity="center"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
                 <ImageView
-                    android:layout_gravity="end|center_vertical"
+                    android:id="@+id/play_activity_menu"
                     style="@style/ImageViewStyle"
-                    android:id="@+id/play_activity_share"
-                    android:padding="10dp"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_gravity="start|center_vertical"
+                    android:padding="10dp"
+                    android:src="@mipmap/menu"
+                    android:tint="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingEnd="46dp"
+                    android:paddingStart="46dp">
+
+                    <com.lingsatuo.widget.XTextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textColor="@color/button_textColor_Dark" />
+
+                    <com.lingsatuo.widget.XTextView
+                        android:id="@+id/subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textColor="@color/button_textColor_Dark" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/play_activity_share"
+                    style="@style/ImageViewStyle"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end|center_vertical"
                     android:layout_marginEnd="10dp"
-                    android:src="@mipmap/share" />
+                    android:padding="10dp"
+                    android:src="@mipmap/share"
+                    android:tint="@color/colorPrimary" />
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
