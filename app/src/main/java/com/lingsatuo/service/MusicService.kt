@@ -87,7 +87,7 @@ class MusicService : Service() {
 
     fun start(item: MusicItem) {
         this.item = item
-        GetMusicAbsPath(item, GetMusicFileName.Quality.MP3, { path ->
+        GetMusicAbsPath(item, GetMusicFileName.Quality.M4AL, { path ->
             start(path)
             for (lis in 0 until listeners.size) {
                 if (lis < listeners.size) break

@@ -2,12 +2,10 @@ package com.lingsatuo.thieves
 
 import android.annotation.SuppressLint
 import android.media.MediaPlayer
-import android.os.Build
 import android.os.Handler
 import android.os.Message
 import android.support.v7.widget.AppCompatSeekBar
 import android.support.v7.widget.CardView
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -21,7 +19,8 @@ import com.lingsatuo.getqqmusic.MusicItem
 import com.lingsatuo.service.MusicService
 import com.lingsatuo.utils.MusicDownPop
 import com.lingsatuo.utils.PlayerActivityShowList
-import com.lingsatuo.widget.MusicProgressBarH
+import com.lingsatuo.utils.SharePop
+import com.lingsatuo.utils.SongInfoShowPop
 import com.lingsatuo.widget.XTextView
 import jp.wasabeef.glide.transformations.BlurTransformation
 import java.text.DecimalFormat
@@ -30,7 +29,7 @@ import java.util.*
 
 class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
     private var seekBar: AppCompatSeekBar? = null
-    private var ontouch = false;
+    private var ontouch = false
     private var dont_touch_me:(View)->Unit={v->
         I_LOVE_U.onClick(playerActivity,v)
     }
@@ -45,9 +44,9 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
         } else if (type == Controller.Type.PAUSE) {
             playerActivity.findViewById<ImageView>(R.id.player_activity_play_pause).setImageResource(R.mipmap.toplay)
         } else {
-            setAlbumIcon()
             playerActivity.findViewById<ImageView>(R.id.player_activity_play_pause).setImageResource(R.mipmap.topause)
         }
+        setAlbumIcon()
     }
 
     private val mediaplayerbufferingupdate: (MediaPlayer, Int) -> Unit= { m, i->
@@ -141,10 +140,13 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
                         playerActivity.findViewById<XTextView>(R.id.play_activity_seek_duration).text = time
                         if (!ontouch){
                             seekBar?.max = l
-                            seekBar?.setProgress(t, true)
+                            try {
+                                seekBar?.setProgress(t, true)
+                            }catch (e:Throwable){
+                                seekBar?.progress = t
+                            }
                         }
                     } catch (e: Throwable) {
-                        e.printStackTrace()
                     }
                 }
                 super.handleMessage(msg)
@@ -187,6 +189,14 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
         playerActivity.findViewById<ImageView>(R.id.player_activity_show_list).setOnClickListener {
             PlayerActivityShowList(playerActivity).show(playerActivity.findViewById<CardView>(R.id.play_card_root))
         }
+        playerActivity.findViewById<ImageView>(R.id.play_activity_more).setOnClickListener{
+            val item = MusicService.instance?.item
+            if (item?.title != "")
+            SongInfoShowPop(playerActivity,item!!).show(playerActivity.findViewById<CardView>(R.id.play_card_root))
+        }
+        playerActivity.findViewById<ImageView>(R.id.play_activity_share).setOnClickListener{v->
+            SharePop(playerActivity,v).show()
+        }
         dont_touch_me()
     }
 
@@ -216,11 +226,9 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
 
 
     private fun dont_touch_me(){
-        playerActivity.findViewById<ImageView>(R.id.play_activity_share).setOnClickListener(dont_touch_me)
         playerActivity.findViewById<ImageView>(R.id.play_activity_add).setOnClickListener(dont_touch_me)
         playerActivity.findViewById<ImageView>(R.id.play_activity_menu).setOnClickListener(dont_touch_me)
         playerActivity.findViewById<ImageView>(R.id.play_activity_like).setOnClickListener(dont_touch_me)
         playerActivity.findViewById<ImageView>(R.id.play_activity_loop).setOnClickListener(dont_touch_me)
-        playerActivity.findViewById<ImageView>(R.id.play_activity_more).setOnClickListener(dont_touch_me)
     }
 }

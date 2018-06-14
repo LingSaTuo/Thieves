@@ -1,7 +1,10 @@
 package com.lingsatuo.thieves
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
@@ -21,8 +24,9 @@ import com.lingsatuo.widget.XTextView
 class SearchActivity : BaseActivity() {
     private lateinit var rv: RecyclerView
     private var list = ArrayList<MusicItem>()
+    private var hotkeys = ArrayList<HotKey>()
     private var page = 1
-    private var key = ""
+    private var key = "中华人民共和国国歌"
     private var lastpage = false
     private var load: LoadingMorePop? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +39,33 @@ class SearchActivity : BaseActivity() {
         rv.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL)
         val floatsearch = findViewById<FloatingSearchView>(R.id.searchview)
         floatsearch.setPadding(getHeight(), getHeight(), getHeight(), 0)
+        GetHotKey({ key ->
+            this@SearchActivity.key = key[0]
+            for (s in key) {
+                hotkeys.add(HotKey().setBody(s))
+            }
+            floatsearch.setOnBindSuggestionCallback { suggestionView, leftIcon, textView, item, itemPosition ->
+                leftIcon.setImageResource(R.mipmap.hotkey)
+                textView.text = item.body
+            }
+        }).start()
+        floatsearch.setOnFocusChangeListener(object : FloatingSearchView.OnFocusChangeListener {
+            override fun onFocusCleared() {
+                floatsearch.clearSuggestions()
+            }
+
+            override fun onFocus() {
+                floatsearch.swapSuggestions(this@SearchActivity.hotkeys)
+            }
+
+        })
+        floatsearch.setOnQueryChangeListener { oldQuery, newQuery ->
+            if (newQuery == "") {
+                floatsearch.swapSuggestions(this@SearchActivity.hotkeys)
+            } else {
+                floatsearch.clearSuggestions()
+            }
+        }
         floatsearch.setOnSearchListener(object : FloatingSearchView.OnSearchListener {
             override fun onSearchAction(currentQuery: String?) {
                 loading()
@@ -42,11 +73,8 @@ class SearchActivity : BaseActivity() {
                 lastpage = false
                 page = 1
                 if (currentQuery == null || currentQuery.isEmpty()) {
-                    GetHotKey({ key ->
-                        GetSearchList(key, page, { e, l ->
-                            this@SearchActivity.key = key
-                            finished(e, l)
-                        }).start()
+                    GetSearchList(key, page, { e, l ->
+                        finished(e, l)
                     }).start()
                 } else {
                     GetSearchList(currentQuery, page, { e, l ->
@@ -57,13 +85,13 @@ class SearchActivity : BaseActivity() {
             }
 
             override fun onSuggestionClicked(searchSuggestion: SearchSuggestion?) {
+                floatsearch.setSearchBarTitle(searchSuggestion?.body ?: key)
             }
-
         })
         val adapter = MSearchActivityRvAdapter(this)
         rv.adapter = adapter
         adapter.setOnLoadingMoreListener {
-            if (lastpage)return@setOnLoadingMoreListener
+            if (lastpage) return@setOnLoadingMoreListener
             page++
             load = LoadingMorePop(this)
             load!!.show(rv)
@@ -80,6 +108,7 @@ class SearchActivity : BaseActivity() {
                 Controller.index = i
                 Controller.list = list
                 MusicService.instance?.start(item)
+                adapter.notifyDataSetChanged()
             }
         }
     }
@@ -99,12 +128,43 @@ class SearchActivity : BaseActivity() {
         } else {
             findViewById<LinearLayout>(R.id.search_loading).visibility = View.GONE
             findViewById<RecyclerView>(R.id.search_list).visibility = View.VISIBLE
-            if (list.size == 0){
+            if (list.size == 0) {
                 lastpage = true
             }
             this.list.addAll(list)
             adapter.setData(this.list)
             adapter.notifyDataSetChanged()
         }
+    }
+
+    class HotKey : SearchSuggestion {
+        constructor(parcel: Parcel) : this()
+
+        private var body = ""
+
+        constructor()
+
+        fun setBody(body: String): HotKey {
+            this.body = body
+            return this
+        }
+
+        override fun writeToParcel(dest: Parcel?, flags: Int) {
+        }
+
+        override fun describeContents(): Int = 0
+
+        override fun getBody(): String = body
+
+        companion object CREATOR : Parcelable.Creator<HotKey> {
+            override fun createFromParcel(parcel: Parcel): HotKey {
+                return HotKey(parcel)
+            }
+
+            override fun newArray(size: Int): Array<HotKey?> {
+                return arrayOfNulls(size)
+            }
+        }
+
     }
 }

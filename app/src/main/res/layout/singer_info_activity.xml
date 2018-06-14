@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:id="@+id/rootview"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/singer_info_ctl"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <ImageView
+                android:layout_width="match_parent"
+                android:scaleType="centerCrop"
+                android:id="@+id/singer_info_header_icon"
+                android:foreground="@color/player_alpha"
+                android:src="@mipmap/back2"
+                android:layout_height="match_parent" />
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    android:background="#00000000"
+                    app:popupTheme="@style/AppTheme.PopupOverlay">
+                    <ImageView
+                        android:id="@+id/play_activity_menu"
+                        style="@style/ImageViewStyle"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="start|center_vertical"
+                        android:padding="10dp"
+                        android:src="@mipmap/backup"
+                        android:tint="@color/colorPrimary" />
+                    <ImageView
+                        style="@style/ImageViewStyle"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:padding="10dp"
+                        android:src="@mipmap/share"
+                        android:tint="@color/colorPrimary" />
+                </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+        <include layout="@layout/singerinfo_content"/>
+</android.support.design.widget.CoordinatorLayout>

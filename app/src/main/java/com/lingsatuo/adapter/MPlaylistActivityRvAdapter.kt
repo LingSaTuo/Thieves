@@ -2,6 +2,8 @@ package com.lingsatuo.adapter
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.ColorStateList
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -14,6 +16,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.lingsatuo.getqqmusic.MusicItem
+import com.lingsatuo.service.MusicService
 import com.lingsatuo.thieves.R
 
 open class MPlaylistActivityRvAdapter(var context: Activity) : RecyclerView.Adapter<ItemViewI>() {
@@ -86,6 +89,15 @@ class ItemViewI(private var view: View, listener: (Int, View) -> Unit) : Recycle
     fun setMusicGroup(musicitem: MusicItem) {
         setTitle(musicitem.title)
         setSubTitle(musicitem.getSingers() + " - " + musicitem.album)
+        if (MusicService.instance?.item?.singmid == musicitem.singmid){
+            view.findViewById<TextView>(R.id.playlist_item_title).setTextColor(view.context.resources.getColor(R.color.colorAccent))
+            view.findViewById<TextView>(R.id.playlist_item_subtitle).setTextColor(view.context.resources.getColor(R.color.progressbar_sec))
+            view.findViewById<ImageView>(R.id.playlist_item_more).imageTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context,R.color.colorAccent))
+        }else{
+            view.findViewById<TextView>(R.id.playlist_item_title).setTextColor(view.context.resources.getColor(R.color.button_textColor))
+            view.findViewById<TextView>(R.id.playlist_item_subtitle).setTextColor(view.context.resources.getColor(R.color.subbutton_textColor))
+            view.findViewById<ImageView>(R.id.playlist_item_more).imageTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context,R.color.button_textColor))
+        }
     }
 
     fun setIcon(uri: String) {

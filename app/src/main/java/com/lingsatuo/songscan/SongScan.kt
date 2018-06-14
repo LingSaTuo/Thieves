@@ -31,9 +31,10 @@ class SongScan private constructor(private var context: Context) {
         ), null, null, null)
         if (cursor.moveToFirst()) {
             do {
-                val song = Song(cursor.getString(2),
-                        cursor.getString(1), cursor.getInt(3), cursor.getString(4),
-                        cursor.getString(5), cursor.getString(6)
+                if(cursor.getInt(3)<1000*60)continue
+                val song = Song(cursor.getString(2) ?: "Unknown",
+                        cursor.getString(1) ?: "Unknown", cursor.getInt(3), cursor.getString(4) ?: "Unknown",
+                        cursor.getString(5) ?: "Unknown", cursor.getString(6)
                         ?: "Unknown", "Music", (cursor.getInt(8) / 1024f / 1024f).toString().substring(0, 4) + "M",
                         cursor.getString(9) ?: "Unknown")
                 println(song.toString())

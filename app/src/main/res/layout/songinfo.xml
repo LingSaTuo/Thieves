@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_card"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.lingsatuo.widget.XTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:text="歌曲名字"
+        android:singleLine="true"
+        android:id="@+id/songinfo_title"
+        android:textColor="@color/button_textColor" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/songinfo_singers_"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/singer"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:tint="@color/button_textColor"
+                    android:layout_height="match_parent" />
+                <com.lingsatuo.widget.XTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:layout_marginStart="14dp"
+                    android:id="@+id/songinfo_singers"
+                    android:text="歌手"
+                    android:textColor="@color/button_textColor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/songinfo_album_"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:src="@mipmap/album"
+                    android:paddingBottom="8dp"
+                    android:scaleType="centerInside"
+                    android:paddingTop="8dp"
+                    android:tint="@color/button_textColor"
+                    android:layout_height="match_parent" />
+                <com.lingsatuo.widget.XTextView
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="14dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/songinfo_album"
+                    android:singleLine="true"
+                    android:gravity="center_vertical"
+                    android:text="专辑"
+                    android:textColor="@color/button_textColor" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

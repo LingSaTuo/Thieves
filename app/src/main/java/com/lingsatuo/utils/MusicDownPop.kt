@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.app.DownloadManager
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -57,6 +58,7 @@ class MusicDownPop(private var activity: Activity,private var item: MusicItem) :
     init {
         pop = PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,true)
         pop.isOutsideTouchable = true
+        pop.setBackgroundDrawable(ColorDrawable(0x00ffffff))
         pop.animationStyle = R.style.down_load_menu
     }
     fun show(v: View){

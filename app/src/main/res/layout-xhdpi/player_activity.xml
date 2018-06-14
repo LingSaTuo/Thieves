@@ -4,15 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/button_textColor">
+
     <ImageView
-        android:layout_width="match_parent"
         android:id="@+id/player_activity_background_image"
+        android:layout_width="match_parent"
+        android:foreground="@color/player_alpha"
         android:layout_height="match_parent" />
 
     <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
         android:id="@+id/root"
-        android:background="@color/player_alpha"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
@@ -29,15 +30,16 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
-            <ImageView
-                style="@style/ImageViewStyle"
-                android:padding="10dp"
-                android:layout_width="40dp"
-                android:id="@+id/play_activity_menu"
-                android:layout_height="40dp"
-                android:src="@mipmap/menu"
-                android:tint="@color/colorPrimary"
-                android:layout_gravity="start|center_vertical" />
+
+                <ImageView
+                    android:id="@+id/play_activity_menu"
+                    style="@style/ImageViewStyle"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="start|center_vertical"
+                    android:padding="10dp"
+                    android:src="@mipmap/menu"
+                    android:tint="@color/colorPrimary" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -64,16 +66,17 @@
                         android:singleLine="true"
                         android:textColor="@color/button_textColor_Dark" />
                 </LinearLayout>
+
                 <ImageView
-                    android:layout_gravity="end|center_vertical"
-                    style="@style/ImageViewStyle"
                     android:id="@+id/play_activity_share"
-                    android:padding="10dp"
+                    style="@style/ImageViewStyle"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:tint="@color/colorPrimary"
+                    android:layout_gravity="end|center_vertical"
                     android:layout_marginEnd="10dp"
-                    android:src="@mipmap/share" />
+                    android:padding="10dp"
+                    android:src="@mipmap/share"
+                    android:tint="@color/colorPrimary" />
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 

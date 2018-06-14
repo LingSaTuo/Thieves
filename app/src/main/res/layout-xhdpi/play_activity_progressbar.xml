@@ -5,35 +5,35 @@
     android:layout_width="match_parent"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
-    android:layout_height="60dp">
+    android:layout_height="match_parent">
     <android.support.v7.widget.AppCompatSeekBar
         android:layout_width="match_parent"
         android:id="@+id/play_activity_seekbar"
         android:layout_marginStart="34dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="34dp"
         android:layout_height="wrap_content" />
     <com.lingsatuo.widget.XTextView
         android:layout_width="wrap_content"
         android:singleLine="true"
         android:textColor="@color/button_textColor_Dark"
-        android:textSize="12sp"
+        android:textSize="8sp"
         android:text="00:00"
         android:layout_marginStart="24dp"
         android:layout_below="@id/play_activity_seekbar"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:id="@+id/play_activity_seek_current"
         android:layout_height="wrap_content" />
     <com.lingsatuo.widget.XTextView
         android:layout_width="wrap_content"
         android:singleLine="true"
         android:textColor="@color/button_textColor_Dark"
-        android:textSize="12sp"
+        android:textSize="8sp"
         android:layout_alignParentEnd="true"
         android:layout_below="@id/play_activity_seekbar"
         android:layout_marginEnd="24dp"
         android:text="00:00"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:id="@+id/play_activity_seek_duration"
         android:layout_height="wrap_content" />
 </RelativeLayout>

@@ -58,7 +58,7 @@ class ItemViewII(private var view: View, listener:(Int, View)->Unit): RecyclerVi
     fun setMusicGroup(musicitem: MusicItem) {
         setTitle(musicitem.title)
         setSubTitle(musicitem.getSingers()+" - "+musicitem.album)
-        if (MusicService.instance?.item?.mid?.equals(musicitem.mid) == true){
+        if (MusicService.instance?.item?.singmid?.equals(musicitem.singmid) == true){
             view.findViewById<ImageView>(R.id.playlist_item_more).visibility = View.VISIBLE
             view.findViewById<ImageView>(R.id.playlist_item_more).setImageResource(R.mipmap.playing)
         }else

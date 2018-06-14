@@ -1,6 +1,7 @@
 package com.lingsatuo.utils
 
 import android.app.Activity
+import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ class MusicMoreInfoPop(private var activity : Activity) {
     init {
         pop = PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
         pop.isOutsideTouchable = false
+        pop.setBackgroundDrawable(ColorDrawable(0x00ffffff))
         pop.animationStyle = R.style.down_load_menu
     }
 

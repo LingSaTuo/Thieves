@@ -114,10 +114,10 @@ class MainActivity : BaseActivity() {
                         , Manifest.permission.READ_PHONE_STATE)
                 .subscribe({get->
                     if (get){
-                        val songscan = SongScan.scan(this).getAlbum()
-                        for(item in songscan.entries){
-                            println(item.key+"          "+item.value)
-                        }
+//                        val songscan = SongScan.scan(this).getAlbum()
+//                        for(item in songscan.entries){
+//                            println(item.key+"          "+item.value)
+//                        }
                     }
                 })
     }
@@ -151,7 +151,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    fun setActivity(mainActivity: MainActivity) {
+    private fun setActivity(mainActivity: MainActivity) {
         val mpbh = mainActivity.findViewById<MusicProgressBarH>(R.id.card_progress)
         mpbh.setMediaPlayer(MusicService.player)
         mpbh.setSecondaryProgress(MusicService.player.duration / 3)

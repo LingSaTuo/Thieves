@@ -11,7 +11,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name="com.lingsatuo.lingapplication.LingBaseTop"
+        android:name="com.lingsatuo.Top"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
@@ -42,7 +42,16 @@
             android:launchMode="singleTask"
             android:label="@string/app_name"
             />
+        <activity android:name=".SingerInfoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:label="@string/app_name"
+            />
         <service android:name="com.lingsatuo.service.MusicService"
+            />
+        <activity android:name="com.lingsatuo.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:label="@string/app_name"
             />
     </application>
 

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
+import android.os.Handler
 import android.support.annotation.RequiresApi
 import android.util.AttributeSet
 import android.util.Log
@@ -39,6 +40,7 @@ class XWebView : WebView {
         settings.saveFormData = false
         settings.allowFileAccess = true
         settings.useWideViewPort = true
+        settings.domStorageEnabled = true
         settings.setSupportZoom(true)
         settings.userAgentString = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0"
         settings.loadsImagesAutomatically = false
@@ -61,19 +63,23 @@ class XWebView : WebView {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
                 if (progress == 100 && !finished) {
                     finished = true
-                    Thread.sleep(2000)
-                    val js = "window.local_obj.showSource('<head>'+" + "document.getElementsByTagName('html')[0].innerHTML+'</head>');"
-                    this@XWebView.post {
-                        run {
-                            try {
-                                this@XWebView.load("javascript:$js")
-                            }catch (e:Throwable){
-                                errorListener.invoke(e)
-                            }
-                        }
-                    }
+                    Handler().postDelayed({
+                        getHtml()
+                    },2000)
                 }
                 super.onProgressChanged(view, newProgress)
+            }
+        }
+    }
+    private fun getHtml(){
+        val js = "window.local_obj.showSource('<head>'+" + "document.getElementsByTagName('html')[0].innerHTML+'</head>');"
+        this@XWebView.post {
+            run {
+                try {
+                    this@XWebView.load("javascript:$js")
+                }catch (e:Throwable){
+                    errorListener.invoke(e)
+                }
             }
         }
     }

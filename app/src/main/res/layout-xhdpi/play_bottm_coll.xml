@@ -4,41 +4,43 @@
     android:layout_width="match_parent"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
+    android:background="#00000000"
     android:gravity="center_vertical"
     android:layout_height="match_parent">
     <ImageView
         style="@style/ImageViewStyle"
         android:layout_weight="1"
-        android:padding="30dp"
-        android:id="@+id/player_activity_show_list"
         android:tint="@color/colorPrimary"
+        android:padding="10dp"
+        android:layout_margin="1dp"
+        android:id="@+id/player_activity_show_list"
         android:src="@mipmap/list" />
     <ImageView
         style="@style/ImageViewStyle"
         android:layout_weight="1"
-        android:padding="30dp"
-        android:id="@+id/player_activity_last"
         android:tint="@color/colorPrimary"
+        android:padding="10dp"
+        android:id="@+id/player_activity_last"
         android:src="@mipmap/last" />
     <ImageView
         style="@style/ImageViewStyle"
         android:layout_weight="1"
-        android:padding="30dp"
         android:tint="@color/colorPrimary"
+        android:padding="10dp"
         android:id="@+id/player_activity_play_pause"
         android:src="@mipmap/toplay"/>
     <ImageView
         style="@style/ImageViewStyle"
         android:layout_weight="1"
         android:src="@mipmap/next"
-        android:padding="30dp"
         android:tint="@color/colorPrimary"
+        android:padding="10dp"
         android:id="@+id/player_activity_next"/>
     <ImageView
         style="@style/ImageViewStyle"
         android:layout_weight="1"
-        android:padding="30dp"
-        android:id="@+id/play_activity_loop"
+        android:padding="10dp"
         android:tint="@color/colorAccent"
+        android:id="@+id/play_activity_loop"
         android:src="@mipmap/loop_"/>
 </LinearLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/singer_item"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+        <ImageView
+            android:layout_width="40dp"
+            android:src="@mipmap/singer_dark"
+            android:scaleType="centerInside"
+            android:id="@+id/singer_list_icon"
+            android:layout_height="match_parent" />
+        <com.lingsatuo.widget.XTextView
+            android:layout_width="match_parent"
+            android:layout_marginStart="14dp"
+            android:layout_height="match_parent"
+            android:id="@+id/singer_list_title"
+            android:singleLine="true"
+            android:gravity="center_vertical"
+            android:text="^ v ^"
+            android:textColor="@color/button_textColor" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
