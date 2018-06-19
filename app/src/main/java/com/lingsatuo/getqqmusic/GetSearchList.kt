@@ -37,7 +37,7 @@ class GetSearchList(private var keywords: String, private var page: Int, private
                 val obj = listi.getJSONObject(index)
                 val item = MusicItem()
                 item.singmid = obj.getString("mid")
-                item.title = obj.getString("name")
+                item.title = obj.getString("title")
                 item.mid = obj.getInt("id").toString()
                 val singers = obj.getJSONArray("singer")
                 getSingers(item,singers)

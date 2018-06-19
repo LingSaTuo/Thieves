@@ -26,7 +26,7 @@
         <RelativeLayout
             android:id="@+id/main_draw_bottom"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="?android:attr/actionBarSize"
             android:layout_alignParentBottom="true"
             android:background="@color/alpha">
 
@@ -50,9 +50,10 @@
                     android:background="@color/alpha"
                     android:padding="10dp">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <ImageView
                         android:layout_width="62dp"
                         android:layout_height="62dp"
+                        android:scaleType="centerInside"
                         android:layout_marginTop="50dp"
                         android:src="@mipmap/user_icon" />
 
@@ -61,20 +62,100 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="6dp"
-                        android:singleLine="true"
-                        android:text="unknown_userid"
+                        android:lines="1"
+                        android:text="笃慕开发组"
                         android:textColor="#ededed"
                         android:textSize="16sp" />
                 </RelativeLayout>
-
-                <com.lingsatuo.widget.XTextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="12dp"
                     android:layout_below="@id/main_draw_xxx"
-                    android:padding="24dp"
-                    android:text="@string/develop_v"
-                    android:textColor="@color/button_textColor"
-                    android:textSize="24sp" />
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:focusable="true"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:padding="4dp"
+                        android:id="@+id/clear_cache"
+                        android:layout_height="50dp">
+                        <ImageView
+                            android:layout_marginStart="18dp"
+                            android:layout_width="20dp"
+                            android:src="@mipmap/clear"
+                            android:tint="@color/button_textColor"
+                            android:layout_height="20dp" />
+                        <com.lingsatuo.widget.XTextView
+                            android:layout_width="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="清除图片缓存"
+                            android:lines="1"
+                            android:layout_marginStart="24dp"
+                            android:textColor="@color/button_textColor"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:padding="4dp"
+                        android:id="@+id/about"
+                        android:gravity="center_vertical"
+                        android:layout_height="50dp">
+                        <ImageView
+                            android:layout_marginStart="18dp"
+                            android:layout_width="20dp"
+                            android:src="@mipmap/about"
+                            android:tint="@color/button_textColor"
+                            android:layout_height="20dp" />
+                        <com.lingsatuo.widget.XTextView
+                            android:layout_width="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="关于"
+                            android:lines="1"
+                            android:layout_marginStart="24dp"
+                            android:textColor="@color/button_textColor"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:visibility="gone"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:padding="4dp"
+                        android:gravity="center_vertical"
+                        android:layout_height="50dp">
+                        <ImageView
+                            android:layout_marginStart="18dp"
+                            android:layout_width="20dp"
+                            android:src="@mipmap/upg"
+                            android:tint="@color/button_textColor"
+                            android:layout_height="20dp" />
+                        <com.lingsatuo.widget.XTextView
+                            android:layout_width="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="检查更新"
+                            android:lines="1"
+                            android:layout_marginStart="24dp"
+                            android:textColor="@color/button_textColor"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>

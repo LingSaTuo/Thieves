@@ -13,7 +13,7 @@
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
         android:text="歌曲名字"
-        android:singleLine="true"
+        android:lines="1"
         android:id="@+id/songinfo_title"
         android:textColor="@color/button_textColor" />
 
@@ -31,7 +31,7 @@
                 android:id="@+id/songinfo_singers_"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="?attr/selectableItemBackground"
+                android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_vertical"
@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:singleLine="true"
+                    android:lines="1"
                     android:layout_marginStart="14dp"
                     android:id="@+id/songinfo_singers"
                     android:text="歌手"
@@ -79,7 +79,7 @@
                     android:layout_marginStart="14dp"
                     android:layout_height="match_parent"
                     android:id="@+id/songinfo_album"
-                    android:singleLine="true"
+                    android:lines="1"
                     android:gravity="center_vertical"
                     android:text="专辑"
                     android:textColor="@color/button_textColor" />

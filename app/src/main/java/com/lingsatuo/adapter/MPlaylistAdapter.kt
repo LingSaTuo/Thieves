@@ -72,7 +72,15 @@ class ItemView(private var view: View,listener:(Int,View)->Unit): RecyclerView.V
         view.findViewById<TextView>(R.id.playlist_title).text = title
     }
     fun setAmount(amount:String){
-        view.findViewById<TextView>(R.id.playlist_amount).text = amount
+        if(amount == "-"){
+            view.findViewById<TextView>(R.id.playlist_amount).text = ""
+            view.findViewById<View>(R.id.re_icon_right).visibility = View.GONE
+            view.findViewById<View>(R.id.re_top).visibility = View.GONE
+        }else{
+            view.findViewById<TextView>(R.id.playlist_amount).text = amount
+            view.findViewById<View>(R.id.re_icon_right).visibility = View.VISIBLE
+            view.findViewById<View>(R.id.re_top).visibility = View.VISIBLE
+        }
     }
     init {
         view.findViewById<CardView>(R.id.play_rec_list_card).setOnClickListener {

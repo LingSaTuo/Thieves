@@ -18,8 +18,8 @@
         app:cardCornerRadius="1dp"
         android:padding="0dp"
         app:cardUseCompatPadding="true"
-        app:cardBackgroundColor="@color/colorPrimaryEnd_"
         app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/colorPrimaryEnd_"
         android:orientation="vertical"
         android:layout_height="0dp" >
         <include
@@ -27,8 +27,15 @@
             tools:ignore="ResourceCycle" />
     </android.support.v7.widget.CardView>
     <include
-        layout="@layout/activity_main_0"
+        layout="@layout/activity_main_1"
+        android:id="@+id/local_list"
         android:layout_below="@id/main_card_play_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <include
+        layout="@layout/activity_main_0"
+        android:layout_below="@id/local_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />

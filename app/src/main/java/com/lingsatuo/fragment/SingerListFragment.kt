@@ -67,7 +67,7 @@ class SingerListFragment : Fragment() {
                 val intent = Intent(activity, PlayerActivity::class.java)
                 startActivity(intent)
             } else {
-                Controller.index = i
+                Controller.index = i-1
                 Controller.list.clear()
                 for (index in 1 until adapter.getData().size){
                     Controller.list.add(adapter.getData()[index])

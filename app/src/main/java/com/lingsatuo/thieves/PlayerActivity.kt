@@ -9,7 +9,7 @@ class PlayerActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.player_activity)
         setSupportActionBar(findViewById(R.id.toolbar))
-        setRootView(findViewById(R.id.root))
+        setRootView(findViewById(R.id.app_bar))
         initView()
     }
 

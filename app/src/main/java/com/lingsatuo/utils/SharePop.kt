@@ -21,6 +21,7 @@ class SharePop (private var activity : Activity,private var v:View){
     }
     fun show(){
         val item = MusicService.instance?.item ?: return
+        if (item.isloca)return
         if (item.singmid == "")return
         pop.showAsDropDown(v)
         view.findViewById<LinearLayout>(R.id.share2wechat).setOnClickListener {

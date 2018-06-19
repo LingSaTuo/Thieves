@@ -16,7 +16,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_above="@id/playlist_title"
-        android:foreground="?attr/selectableItemBackground"
+        android:foreground="?android:attr/selectableItemBackground"
         android:id="@+id/play_rec_list_card"
         android:clickable="true"
         android:layout_height="match_parent"
@@ -31,6 +31,7 @@
             android:layout_height="match_parent" />
         <View
             android:layout_width="match_parent"
+            android:id="@+id/re_top"
             android:background="@drawable/playitem"
             android:layout_height="60dp"/>
         <com.lingsatuo.widget.XTextView
@@ -46,6 +47,7 @@
         <ImageView
             android:layout_width="10dp"
             android:src="@mipmap/amount"
+            android:id="@+id/re_icon_right"
             android:layout_margin="4dp"
             android:scaleType="centerCrop"
             android:layout_toStartOf="@id/playlist_amount"

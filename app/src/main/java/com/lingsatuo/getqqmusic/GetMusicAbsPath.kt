@@ -1,6 +1,5 @@
 package com.lingsatuo.getqqmusic
 
-import android.util.Log
 import com.lingsatuo.utils.NetWork
 import org.json.JSONObject
 import org.jsoup.Jsoup
@@ -9,6 +8,12 @@ import java.util.regex.Pattern
 class GetMusicAbsPath(private var item :MusicItem,private var quality:GetMusicFileName.Quality,private var listener:(String)->Unit):Thread() {
     override fun run() {
         try {
+            if (item.isloca) {
+                RunOnUiThread {
+                    listener.invoke(item.mid)
+                }
+                return
+            }
             val filename = GetMusicFileName.getName(quality, item)
             item.filename = filename
             val vkg = VKeyGeter(item)

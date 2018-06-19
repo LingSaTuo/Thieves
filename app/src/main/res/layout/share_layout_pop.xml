@@ -36,6 +36,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="14dp"
                 android:gravity="center_vertical"
+                android:lines="1"
                 android:layout_marginEnd="16dp"
                 android:text="分享到微信"
                 android:textColor="@color/button_textColor"
@@ -66,6 +67,7 @@
                 android:layout_marginStart="14dp"
                 android:gravity="center_vertical"
                 android:text="分享到朋友圈"
+                android:lines="1"
                 android:layout_marginEnd="16dp"
                 android:textColor="@color/button_textColor"
                 android:textSize="16sp" />

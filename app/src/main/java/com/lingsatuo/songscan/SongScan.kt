@@ -17,6 +17,7 @@ class SongScan private constructor(private var context: Context) {
 
     @SuppressLint("Recycle")
     private fun startScan() {
+        Album.clear()
         val cursor = context.contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, arrayOf(
                 MediaStore.Audio.Media._ID,
                 MediaStore.Audio.Media.DISPLAY_NAME,
@@ -37,7 +38,6 @@ class SongScan private constructor(private var context: Context) {
                         cursor.getString(5) ?: "Unknown", cursor.getString(6)
                         ?: "Unknown", "Music", (cursor.getInt(8) / 1024f / 1024f).toString().substring(0, 4) + "M",
                         cursor.getString(9) ?: "Unknown")
-                println(song.toString())
                 if (Album.containsKey(song.getAlbum())) {
                     Album[song.getAlbum()]?.add(song)
                 } else {

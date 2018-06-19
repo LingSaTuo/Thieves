@@ -63,4 +63,10 @@
         app:floatingSearch_dismissOnOutsideTouch="true"
         app:floatingSearch_close_search_on_keyboard_dismiss="true"
         android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:layout_width="@dimen/dubug_width"
+        android:src="@mipmap/debug"
+        android:scaleType="centerInside"
+        android:layout_height="@dimen/dubug_width" />
 </FrameLayout>

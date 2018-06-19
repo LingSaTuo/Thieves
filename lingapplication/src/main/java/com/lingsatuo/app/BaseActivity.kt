@@ -1,5 +1,7 @@
 package com.lingsatuo.app
 
+import android.app.ProgressDialog
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -68,6 +70,7 @@ open class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addActivity(this)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
     fun addActivity(activity: AppCompatActivity) {
         LingBaseTop.addActivity(activity)

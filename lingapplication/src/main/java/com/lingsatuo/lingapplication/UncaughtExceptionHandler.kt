@@ -3,6 +3,7 @@ package com.lingsatuo.lingapplication
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Process
 
 /**
  * Created by Administrator on 2018/3/26.
@@ -27,6 +28,7 @@ class UncaughtExceptionHandler private constructor() : Thread.UncaughtExceptionH
         bug.putExtra(ERRORKEY,p1)
         contxet?.startActivity(bug)
         LingBaseTop.exitApp()
+        Process.killProcess(Process.myPid())
     }
     fun init(){
         if (handler!=null)Thread.setDefaultUncaughtExceptionHandler(handler)

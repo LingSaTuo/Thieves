@@ -53,6 +53,21 @@
             android:exported="true"
             android:label="@string/app_name"
             />
+        <activity android:name=".AboutActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            />
+        <activity android:name=".LocalActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            />
+        <receiver android:name="com.lingsatuo.receiver.NotifictionReceiver">
+            <intent-filter>
+                <action android:name="musicone_pause_play"/>
+                <action android:name="musicone_close"/>
+                <action android:name="musicone_next"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

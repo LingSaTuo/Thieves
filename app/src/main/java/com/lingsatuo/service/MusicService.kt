@@ -10,12 +10,15 @@ import com.lingsatuo.getqqmusic.GetMusicFileName
 import com.lingsatuo.getqqmusic.MusicItem
 import com.lingsatuo.getqqmusic.RunOnUiThread
 import com.lingsatuo.thieves.Controller
+import com.lingsatuo.utils.MNotificationManager
+import com.lingsatuo.utils.NetWork
 import java.util.ArrayList
 
 class MusicService : Service() {
     val listeners = ArrayList<(MusicItem) -> Unit>()
     private var am: AudioManager? = null
     var item = MusicItem()
+    private var playing = false
     private var canplay = false
     var path: String? = null
     private val bufferingupdate :(MediaPlayer,Int)->Unit={m,p->
@@ -35,6 +38,7 @@ class MusicService : Service() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        MNotificationManager.show(this)
         am = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         addListener()
     }
@@ -65,27 +69,36 @@ class MusicService : Service() {
     }
 
     fun seekTo(duration: Int) {
-        if (canPlay()) {
+        if (isReady()) {
             player.seekTo(duration)
         }
     }
-
     private fun start(path: String) {
         this.path = path
         Thread(Runnable {
             player.reset()
             try {
                 Controller.addBufferingUpdateListener(bufferingupdate)
-                canplay = true
                 player.setDataSource(path)
                 player.prepare()
+                canplay = true
+                playing = true
+                if (item.isloca){
+                    bufferingupdate.invoke(player,100)
+                }
             } catch (e: Throwable) {
                 e.printStackTrace()
             }
         }).start()
     }
 
+    fun start() {
+        play()
+        player.start()
+    }
     fun start(item: MusicItem) {
+        playing = false
+        if (!NetWork().avalibe(applicationContext)&&!item.isloca)return
         this.item = item
         GetMusicAbsPath(item, GetMusicFileName.Quality.M4AL, { path ->
             start(path)
@@ -96,8 +109,8 @@ class MusicService : Service() {
         }).start()
     }
 
-    fun canPlay(): Boolean {
-        return player.duration > 100
+    fun isReady(): Boolean {
+        return playing
     }
 
     fun stop() {
@@ -119,7 +132,7 @@ class MusicService : Service() {
         return null
     }
 
-    fun addListener() {
+    private fun addListener() {
         afChangeListener = AudioManager.OnAudioFocusChangeListener { focusChange ->
             if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
                 if (player.isPlaying) {

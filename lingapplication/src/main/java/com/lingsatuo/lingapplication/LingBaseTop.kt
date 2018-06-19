@@ -1,9 +1,11 @@
 package com.lingsatuo.lingapplication
 
+import android.app.Activity
 import android.app.Application
+import android.content.Intent
 import android.os.Process
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
+
 /* *                #                                                   #
 * #                       _oo0oo_                     #
 * #                      o8888888o                    #
@@ -44,10 +46,9 @@ open class LingBaseTop : Application() {
         }
         fun exitApp(){
             for (activity in list){
+                activity.onBackPressed()
                 activity.finish()
             }
-            list.clear()
-            Process.killProcess(Process.myPid())
         }
     }
 }

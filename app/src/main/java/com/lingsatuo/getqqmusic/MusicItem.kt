@@ -4,6 +4,7 @@ import java.io.Serializable
 
 class MusicItem : Serializable {
     var title =""//标题
+    var isloca = false//本地？
     var href=""//链接
     var album = ""//专辑
     var albumid = ""//专辑
@@ -11,6 +12,7 @@ class MusicItem : Serializable {
     var singer = ArrayList<Singer>()//歌手
     var mid = ""//mid
     var singmid = ""//singmig
+    var singid = ""//本地？
     var filename = ""//文件名
     var vkey = ""//Vkey
     override fun toString() = "$title   $href   $album  $singer  $mid  $singmid"
@@ -26,7 +28,7 @@ class MusicItem : Serializable {
         for (index in 0 until singer.size){
             str.append(singer[index].singer)
             if (index!=singer.size-1)
-                str.append(" 、 ")
+                str.append(" / ")
         }
         return str.toString()
     }

@@ -61,4 +61,10 @@
                 />
         </RelativeLayout>
     </android.support.design.widget.CoordinatorLayout>
+
+    <ImageView
+        android:layout_width="@dimen/dubug_width"
+        android:src="@mipmap/debug"
+        android:scaleType="centerInside"
+        android:layout_height="@dimen/dubug_width" />
 </FrameLayout>

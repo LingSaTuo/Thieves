@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    android:padding="24dp">
+
+    <ImageView
+        android:id="@+id/player_header_icon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/back2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_toEndOf="@id/player_header_icon"
+        android:orientation="vertical"
+        android:paddingStart="48dp"
+        tools:ignore="RtlSymmetry">
+
+        <com.lingsatuo.widget.XTextView
+            android:id="@+id/player_header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:text="@string/app_name"
+            android:textColor="@color/button_textColor_Dark"
+            android:textSize="22sp" />
+
+        <com.lingsatuo.widget.XTextView
+            android:id="@+id/player_header_subtitle"
+            android:layout_width="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:text="@string/app_name"
+            android:textColor="@color/button_textColor_Dark"
+            android:textSize="18sp" />
+    </LinearLayout>
+    <com.lingsatuo.widget.MusicSeekBar
+        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_below="@id/player_header_icon"
+        android:id="@+id/player_header_seekbar"
+        android:layout_height="10dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:id="@+id/player_header_xxx"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_below="@id/player_header_seekbar"
+        android:layout_marginTop="24dp"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/player_header_item_playing"
+            style="@style/ImageViewStyle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:src="@mipmap/playing"
+            android:tint="@color/colorPrimary" />
+
+
+        <ImageView
+            android:id="@+id/player_header_item_next"
+            style="@style/ImageViewStyle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:layout_alignParentEnd="true"
+            android:src="@mipmap/next"
+            android:tint="@color/colorPrimary" />
+        <ImageView
+            android:id="@+id/player_header_item_play_pause"
+            style="@style/ImageViewStyle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/player_header_item_next"
+            android:layout_marginEnd="12dp"
+            android:padding="8dp"
+            android:src="@mipmap/toplay"
+            android:tint="@color/colorPrimary" />
+        <ImageView
+            android:id="@+id/player_header_item_last"
+            style="@style/ImageViewStyle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:layout_toStartOf="@id/player_header_item_play_pause"
+            android:layout_marginEnd="12dp"
+            android:src="@mipmap/last"
+            android:tint="@color/colorPrimary" />
+
+        <com.lingsatuo.widget.XTextView
+            android:id="@+id/player_header_item_title"
+            android:layout_width="wrap_content"
+            android:layout_toStartOf="@id/player_header_item_last"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@id/player_header_item_playing"
+            android:lines="1"
+            android:text="@string/app_name"
+            android:textColor="@color/button_textColor_Dark"
+            android:textSize="16sp" />
+
+        <com.lingsatuo.widget.XTextView
+            android:layout_width="wrap_content"
+            android:id="@+id/player_header_item_subtitle"
+            android:layout_toStartOf="@id/player_header_item_last"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/player_header_item_title"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@id/player_header_item_playing"
+            android:lines="1"
+            android:text="@string/app_name"
+            android:textColor="@color/button_textColor_Dark"
+            android:textSize="12sp" />
+    </RelativeLayout>
+    <com.lingsatuo.view.KoolLrcView
+        android:layout_width="match_parent"
+        android:layout_below="@id/player_header_xxx"
+        android:id="@+id/player_header_lrcviews"
+        android:visibility="gone"
+        android:layout_marginTop="24dp"
+        android:layout_height="85dp"/>
+</RelativeLayout>

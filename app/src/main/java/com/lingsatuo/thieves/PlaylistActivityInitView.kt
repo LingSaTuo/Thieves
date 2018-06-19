@@ -1,8 +1,6 @@
 package com.lingsatuo.thieves
 
 import android.content.Intent
-import android.media.MediaPlayer
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
@@ -45,12 +43,14 @@ class PlaylistActivityInitView(private var playlistActivity: PlaylistActivity) {
         val head = LayoutInflater.from(playlistActivity).inflate(R.layout.playlist_rv_head, null, false)
         adapter.setOnItemClickListener { i, view ->
             val item = adapter.getItem(i)
+            adapter.notifyDataSetChanged()
             if (item.singmid == MusicService.instance?.item?.singmid) {
                 val intent = Intent(playlistActivity, PlayerActivity::class.java)
                 playlistActivity.startActivity(intent)
             } else {
-                Controller.index = i
-                Controller.list = l
+                Controller.index = i-1
+                Controller.list.clear()
+                Controller.list.addAll(l)
                 MusicService.instance?.start(item)
             }
         }

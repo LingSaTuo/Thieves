@@ -16,6 +16,7 @@ import com.lingsatuo.adapter.MSearchActivityRvAdapter
 import com.lingsatuo.app.BaseActivity
 import com.lingsatuo.getqqmusic.GetHotKey
 import com.lingsatuo.getqqmusic.GetSearchList
+import com.lingsatuo.getqqmusic.GetSmartBox
 import com.lingsatuo.getqqmusic.MusicItem
 import com.lingsatuo.service.MusicService
 import com.lingsatuo.utils.LoadingMorePop
@@ -63,7 +64,9 @@ class SearchActivity : BaseActivity() {
             if (newQuery == "") {
                 floatsearch.swapSuggestions(this@SearchActivity.hotkeys)
             } else {
-                floatsearch.clearSuggestions()
+                GetSmartBox(newQuery,{list,e->
+                    floatsearch.swapSuggestions(list)
+                }).start()
             }
         }
         floatsearch.setOnSearchListener(object : FloatingSearchView.OnSearchListener {
@@ -85,7 +88,9 @@ class SearchActivity : BaseActivity() {
             }
 
             override fun onSuggestionClicked(searchSuggestion: SearchSuggestion?) {
-                floatsearch.setSearchBarTitle(searchSuggestion?.body ?: key)
+                this.onSearchAction(searchSuggestion?.body ?: key)
+                floatsearch.clearSuggestions()
+                floatsearch.setSearchFocused(false)
             }
         })
         val adapter = MSearchActivityRvAdapter(this)
@@ -105,7 +110,7 @@ class SearchActivity : BaseActivity() {
                 val intent = Intent(this, PlayerActivity::class.java)
                 startActivity(intent)
             } else {
-                Controller.index = i
+                Controller.index = i-1
                 Controller.list = list
                 MusicService.instance?.start(item)
                 adapter.notifyDataSetChanged()

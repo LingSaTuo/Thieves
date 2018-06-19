@@ -8,6 +8,7 @@ class ItemGet(private var html:String) {
     init {
         list.clear()
         val ht = Jsoup.parse(html)
+        println(html)
         val root = ht.select("ul.songlist__list").select("li")
         for (ele in root){
             getItem(ele)

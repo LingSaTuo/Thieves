@@ -4,6 +4,7 @@ package com.lingsatuo.widget
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
+import android.net.http.SslError
 import android.os.Build
 import android.os.Handler
 import android.support.annotation.RequiresApi
@@ -11,6 +12,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.webkit.*
+import android.widget.Toast
 import java.io.IOException
 
 
@@ -40,7 +42,10 @@ class XWebView : WebView {
         settings.saveFormData = false
         settings.allowFileAccess = true
         settings.useWideViewPort = true
+        settings.setAppCachePath(context.cacheDir.absolutePath)
         settings.domStorageEnabled = true
+        settings.setAppCacheEnabled(true)
+
         settings.setSupportZoom(true)
         settings.userAgentString = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0"
         settings.loadsImagesAutomatically = false
@@ -50,6 +55,12 @@ class XWebView : WebView {
         settings.pluginState = WebSettings.PluginState.ON
         addJavascriptInterface(InJavaScriptLocalObj(), "local_obj")
         val webViewClient = object : WebViewClient() {
+            override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
+                    handler?.proceed()
+                if (error!=null){
+                    Toast.makeText(context,"如果证书是必须的，那我不要了 ："+error.toString(),Toast.LENGTH_SHORT).show()
+                }
+            }
             override fun onReceivedError(view: WebView?, errorCode: Int, description: String?, failingUrl: String?) {
                 if (description != null) {
                     this@XWebView.post {
@@ -117,7 +128,7 @@ class XWebView : WebView {
                 mheight = this@XWebView.measuredHeight
             source = html
             listener.invoke()
-            load("about:blank;")
+          //  load("about:blank;")
         }
     }
 

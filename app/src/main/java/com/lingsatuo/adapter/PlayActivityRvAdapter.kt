@@ -1,6 +1,7 @@
 package com.lingsatuo.adapter
 
 import android.content.Context
+import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -62,7 +63,7 @@ class ItemViewII(private var view: View, listener:(Int, View)->Unit): RecyclerVi
             view.findViewById<ImageView>(R.id.playlist_item_more).visibility = View.VISIBLE
             view.findViewById<ImageView>(R.id.playlist_item_more).setImageResource(R.mipmap.playing)
         }else
-        view.findViewById<ImageView>(R.id.playlist_item_more).visibility = View.GONE
+            view.findViewById<ImageView>(R.id.playlist_item_more).setImageResource(R.mipmap.more)
     }
     //    fun getIcon() = view.findViewById<ImageView>(R.id.playlist_icon)!!
     fun setTitle(title: String) {
@@ -76,6 +77,9 @@ class ItemViewII(private var view: View, listener:(Int, View)->Unit): RecyclerVi
     init {
         view.findViewById<LinearLayout>(R.id.play_activity_list_item)?.setOnClickListener {
             listener.invoke(position, view)
+        }
+        view.findViewById<AppCompatImageView>(R.id.playlist_item_more)?.setOnClickListener {
+            listener.invoke(position, view.findViewById<AppCompatImageView>(R.id.playlist_item_more)!!)
         }
     }
 }
