@@ -27,6 +27,7 @@ class MusicItem : Serializable {
     var singmid = ""//singmig
     var singid = 0// id
     var filename = ""//文件名
+    var filesize = HashMap<GetMusicFileName.Quality,String>()
     var vkey = ""//Vkey
     override fun toString() = "$title   $href   $album  $singer  $mid  $singmid   $albumicon   $icon"
     class Singer : Serializable {

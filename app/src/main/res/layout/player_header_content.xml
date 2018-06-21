@@ -70,6 +70,7 @@
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:padding="8dp"
+            android:visibility="gone"
             android:src="@mipmap/playing"
             android:tint="@color/colorPrimary" />
 

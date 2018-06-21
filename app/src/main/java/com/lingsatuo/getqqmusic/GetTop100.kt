@@ -2,6 +2,7 @@ package com.lingsatuo.getqqmusic
 
 import com.lingsatuo.utils.NetWork
 import org.json.JSONArray
+import org.json.JSONObject
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -47,11 +48,31 @@ class GetTop100(private var lis:(Throwable?, ArrayList<MusicItem>)->Unit):Thread
             item.singmid = data.getString("songmid")
             item.title = data.getString("songname")
             item.strMediaMid = data.getString("strMediaMid")
+            getFileSize(item,data)
             item.icon = item.albummid
             item.href = "https://y.qq.com/n/yqq/song/${item.singmid}.html"
             list.add(item)
         }
     }
+
+    private fun getFileSize(item: MusicItem,file: JSONObject){
+        val mp3h = file.getInt("size320")
+        if (mp3h!=0)
+            item.filesize.put(GetMusicFileName.Quality.MP3H,"${String.format("%.2f",(mp3h/1024f/1024))}MB")
+        val mp3 = file.getInt("size128")
+        if (mp3!=0)
+            item.filesize.put(GetMusicFileName.Quality.MP3,"${String.format("%.2f",(mp3/1024f/1024))}MB")
+        val ape = file.getInt("sizeape")
+        if (ape!=0)
+            item.filesize.put(GetMusicFileName.Quality.APE,"${String.format("%.2f",(ape/1024f/1024))}MB")
+        val flac = file.getInt("sizeflac")
+        if (flac!=0)
+            item.filesize.put(GetMusicFileName.Quality.FLAC,"${String.format("%.2f",(flac/1024f/1024))}MB")
+        val ogg = file.getInt("sizeogg")
+        if (ogg!=0)
+            item.filesize.put(GetMusicFileName.Quality.OGG,"${String.format("%.2f",(ogg/1024f/1024))}MB")
+    }
+
     private fun addSinger(musicItem: MusicItem,jsonArray: JSONArray){
         for (index in 0 until jsonArray.length()){
             val singer = MusicItem.Singer()

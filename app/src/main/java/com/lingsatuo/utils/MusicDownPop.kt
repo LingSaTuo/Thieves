@@ -11,6 +11,7 @@ import android.os.Environment
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.widget.TextView
 import android.widget.Toast
 import com.lingsatuo.getqqmusic.GetMusicAbsPath
 import com.lingsatuo.getqqmusic.GetMusicFileName
@@ -55,27 +56,60 @@ class MusicDownPop(private var activity: Activity, private var item: MusicItem) 
 
     private var pop: PopupWindow
     private val view: View = LayoutInflater.from(activity).inflate(R.layout.download_layout, null, false)
-
+    private var root:LinearLayout
     init {
         pop = PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
         pop.isOutsideTouchable = true
         pop.setBackgroundDrawable(ColorDrawable(0x00ffffff))
         pop.animationStyle = R.style.down_load_menu
+        root = view.findViewById(R.id.down_root)
     }
 
     fun show(v: View) {
         if (item.isloca) {
-            Toast.makeText(activity,"你去桶里打桶水吧！（这是本地歌曲）",Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "你去桶里打桶水吧！（这是本地歌曲）", Toast.LENGTH_SHORT).show()
             return
         }
         pop.showAtLocation(v, Gravity.BOTTOM, 0, 0)
-        view.findViewById<LinearLayout>(R.id.dl_m4a_l).setOnClickListener(this)
-        view.findViewById<LinearLayout>(R.id.dl_m4a).setOnClickListener(this)
-        view.findViewById<LinearLayout>(R.id.dl_mp3).setOnClickListener(this)
-        view.findViewById<LinearLayout>(R.id.dl_ogg).setOnClickListener(this)
-        view.findViewById<LinearLayout>(R.id.dl_mp3h).setOnClickListener(this)
-        view.findViewById<LinearLayout>(R.id.dl_fac).setOnClickListener(this)
-        view.findViewById<LinearLayout>(R.id.dl_ape).setOnClickListener(this)
+        for (key in item.filesize.keys) {
+            when(key){
+                GetMusicFileName.Quality.MP3->{
+                    root.getChildAt(3).visibility = View.VISIBLE
+                    root.getChildAt(3).setOnClickListener(this)
+                    addsize(root.getChildAt(3) as LinearLayout, item.filesize[GetMusicFileName.Quality.MP3])
+                }
+                GetMusicFileName.Quality.M4AL->{
+                    root.getChildAt(0).visibility = View.VISIBLE
+                    root.getChildAt(0).setOnClickListener(this)
+                    addsize(root.getChildAt(0) as LinearLayout, item.filesize[GetMusicFileName.Quality.M4AL])
+                }
+                GetMusicFileName.Quality.M4AH->{
+                    root.getChildAt(1).visibility = View.VISIBLE
+                    root.getChildAt(1).setOnClickListener(this)
+                    addsize(root.getChildAt(1) as LinearLayout, item.filesize[GetMusicFileName.Quality.MP3H])
+                }
+                GetMusicFileName.Quality.APE->{
+                    root.getChildAt(6).visibility = View.VISIBLE
+                    root.getChildAt(6).setOnClickListener(this)
+                    addsize(root.getChildAt(6) as LinearLayout, item.filesize[GetMusicFileName.Quality.APE])
+                }
+                GetMusicFileName.Quality.FLAC->{
+                    root.getChildAt(5).visibility = View.VISIBLE
+                    root.getChildAt(5).setOnClickListener(this)
+                    addsize(root.getChildAt(5) as LinearLayout, item.filesize[GetMusicFileName.Quality.FLAC])
+                }
+                GetMusicFileName.Quality.MP3H->{
+                    root.getChildAt(4).visibility = View.VISIBLE
+                    root.getChildAt(4).setOnClickListener(this)
+                    addsize(root.getChildAt(4) as LinearLayout, item.filesize[GetMusicFileName.Quality.MP3H])
+                }
+                GetMusicFileName.Quality.OGG->{
+                    root.getChildAt(2).visibility = View.VISIBLE
+                    root.getChildAt(2).setOnClickListener(this)
+                    addsize(root.getChildAt(2) as LinearLayout, item.filesize[GetMusicFileName.Quality.OGG])
+                }
+            }
+        }
     }
 
     private fun download(url: String) {
@@ -93,5 +127,9 @@ class MusicDownPop(private var activity: Activity, private var item: MusicItem) 
         val manager = activity.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         manager.enqueue(request)
         Toast.makeText(activity, "已经提交系统处理", Toast.LENGTH_LONG).show()
+    }
+    private fun addsize(view:LinearLayout,size:String?){
+        val textView = view.getChildAt(0) as TextView
+        textView.append("  $size")
     }
 }

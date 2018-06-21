@@ -21,18 +21,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/down_root"
             android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/dl_m4a_l"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                style="@style/DownloadLLStyle">
 
                 <com.lingsatuo.widget.XTextView
                     android:layout_width="match_parent"
@@ -45,14 +39,7 @@
 
             <LinearLayout
                 android:id="@+id/dl_m4a"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                style="@style/DownloadLLStyle">
 
                 <com.lingsatuo.widget.XTextView
                     android:layout_width="match_parent"
@@ -65,14 +52,7 @@
 
             <LinearLayout
                 android:id="@+id/dl_ogg"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                style="@style/DownloadLLStyle">
 
                 <com.lingsatuo.widget.XTextView
                     android:layout_width="match_parent"
@@ -85,14 +65,7 @@
 
             <LinearLayout
                 android:id="@+id/dl_mp3"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                style="@style/DownloadLLStyle">
 
                 <com.lingsatuo.widget.XTextView
                     android:layout_width="match_parent"
@@ -105,14 +78,7 @@
 
             <LinearLayout
                 android:id="@+id/dl_mp3h"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                style="@style/DownloadLLStyle">
 
                 <com.lingsatuo.widget.XTextView
                     android:layout_width="match_parent"
@@ -125,34 +91,7 @@
 
             <LinearLayout
                 android:id="@+id/dl_fac"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <com.lingsatuo.widget.XTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="14dp"
-                    android:gravity="center_vertical"
-                    android:text="极高"
-                    android:textColor="@color/button_textColor_Dark"  />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/dl_ape"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                style="@style/DownloadLLStyle">
 
                 <com.lingsatuo.widget.XTextView
                     android:layout_width="match_parent"
@@ -160,7 +99,20 @@
                     android:layout_marginStart="14dp"
                     android:gravity="center_vertical"
                     android:text="无损"
-                    android:textColor="@color/button_textColor_Dark" />
+                    android:textColor="@color/button_textColor"  />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dl_ape"
+                style="@style/DownloadLLStyle">
+
+                <com.lingsatuo.widget.XTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="14dp"
+                    android:gravity="center_vertical"
+                    android:text="极高"
+                    android:textColor="@color/button_textColor" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

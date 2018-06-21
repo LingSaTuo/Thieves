@@ -44,5 +44,16 @@
         <item name="android:padding">16dp</item>
     </style>
 
+    <style name="DownloadLLStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:padding">10dp</item>
+    </style>
     <!--<style name="tool_menu_bottom">--><!--<item name="android:windowEnterAnimation">@anim/popu_in</item>--><!--<item name="android:windowExitAnimation">@anim/popu_out</item>--><!--</style>-->
 </resources>

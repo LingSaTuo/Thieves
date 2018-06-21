@@ -53,6 +53,7 @@ class GetSinerSongList(private var singer: MusicItem.Singer, private val page: I
                     musicitem.title = musicdata.getString("songname")
                     musicitem.singmid = musicdata.getString("songmid")
                     musicitem.strMediaMid = musicdata.getString("strMediaMid")
+                    getFileSize(musicitem ,musicdata)
                     musicitem.href = "https://y.qq.com/n/yqq/song/${musicitem.singmid}.html"
                     getSinger(musicitem, musicdata.getJSONArray("singer"))
                     listi.add(musicitem)
@@ -60,6 +61,28 @@ class GetSinerSongList(private var singer: MusicItem.Singer, private val page: I
             }
         }
 
+
+
+        private fun getFileSize(item: MusicItem,file:JSONObject){
+            val m4al = file.getInt("size_aac")
+            if (m4al!=0)
+                item.filesize.put(GetMusicFileName.Quality.M4AH,"${String.format("%.2f",(m4al/1024f/1024))}MB")
+            val mp3h = file.getInt("size_320")
+            if (mp3h!=0)
+                item.filesize.put(GetMusicFileName.Quality.MP3H,"${String.format("%.2f",(mp3h/1024f/1024))}MB")
+            val mp3 = file.getInt("size_128")
+            if (mp3!=0)
+                item.filesize.put(GetMusicFileName.Quality.MP3,"${String.format("%.2f",(mp3/1024f/1024))}MB")
+            val ape = file.getInt("size_ape")
+            if (ape!=0)
+                item.filesize.put(GetMusicFileName.Quality.APE,"${String.format("%.2f",(ape/1024f/1024))}MB")
+            val flac = file.getInt("size_flac")
+            if (flac!=0)
+                item.filesize.put(GetMusicFileName.Quality.FLAC,"${String.format("%.2f",(flac/1024f/1024))}MB")
+            val ogg = file.getInt("size_ogg")
+            if (ogg!=0)
+                item.filesize.put(GetMusicFileName.Quality.OGG,"${String.format("%.2f",(ogg/1024f/1024))}MB")
+        }
         private fun getSinger(musicItem: MusicItem, singers: JSONArray) {
             for (a in 0 until singers.length()) {
                 val sings = MusicItem.Singer()
