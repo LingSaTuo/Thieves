@@ -34,7 +34,8 @@ class MPlaylistAdapter(var context: Context):RecyclerView.Adapter<ItemView>(){
 
     //当view划出屏幕时清除icon控件，避免封面错位
     override fun onViewRecycled(holder: ItemView) {
-            Glide.clear(holder.getIcon())
+        if (holder.getIcon()!=null)
+         Glide.clear(holder.getIcon())
         super.onViewRecycled(holder)
     }
     fun setOnItemClickListener(listener:(Int,View)->Unit){
@@ -67,7 +68,7 @@ class ItemView(private var view: View,listener:(Int,View)->Unit): RecyclerView.V
                 .priority(Priority.HIGH)
                 .into(icon)
     }
-    fun getIcon() = view.findViewById<ImageView>(R.id.playlist_icon)!!
+    fun getIcon() = view.findViewById<ImageView>(R.id.playlist_icon)
     fun setTitle(title:String){
         view.findViewById<TextView>(R.id.playlist_title).text = title
     }

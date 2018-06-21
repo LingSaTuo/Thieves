@@ -19,11 +19,20 @@ class MainActivityInitView(private var mainActivity: MainActivity) {
         local.amount = "-"
         local.icon = "http://musicone-1253269015.coscd.myqcloud.com/local.png"
         list.add(local)
+        val local2 = MusicGroup()
+        local2.title = "Top100"
+        local2.amount = "-"
+        local2.icon = "http://musicone-1253269015.coscd.myqcloud.com/local.png"
+        list.add(local2)
         adapter.setData(list)
         adapter.setOnItemClickListener { i, view ->
-            val localactivity = Intent(mainActivity,LocalActivity::class.java)
+
+            val localactivity = if (i==0) {
+                 Intent(mainActivity, LocalActivity::class.java)
+            } else { Intent(mainActivity, Top100::class.java) }
             localactivity.putExtra("MUSICGROUP",adapter.getItem(i))
             mainActivity.startActivity(localactivity)
+
         }
     }
 }

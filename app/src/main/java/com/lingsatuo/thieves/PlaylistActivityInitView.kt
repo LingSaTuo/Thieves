@@ -13,7 +13,6 @@ import com.lingsatuo.adapter.MPlaylistActivityRvAdapter
 import com.lingsatuo.getqqmusic.*
 import com.lingsatuo.service.MusicService
 import com.lingsatuo.widget.XTextView
-import com.lingsatuo.widget.XWebView
 
 class PlaylistActivityInitView(private var playlistActivity: PlaylistActivity) {
     private val adapter = MPlaylistActivityRvAdapter(playlistActivity)
@@ -34,7 +33,6 @@ class PlaylistActivityInitView(private var playlistActivity: PlaylistActivity) {
     }
 
     fun setView() {
-        val webView = playlistActivity.findViewById<XWebView>(R.id.playlist_webview)
         val group = playlistActivity.intent.getSerializableExtra("GROUP") as MusicGroup
         rv = playlistActivity.findViewById(R.id.playlist_rv)
         playlistActivity.findViewById<XTextView>(R.id.title).text = group.title
@@ -60,13 +58,6 @@ class PlaylistActivityInitView(private var playlistActivity: PlaylistActivity) {
                 .placeholder(R.mipmap.loading)
                 .priority(Priority.HIGH)
                 .into(head.findViewById(R.id.play_list_head))
-        //  adapter.setHand(head)
-        webView.addFinishListener {
-            MusicItemGet(listener, webView.getSource()).start()
-        }
-        webView.setOnErrorListener { e ->
-            playlistActivity.findViewById<XTextView>(R.id.playlist_avtivity_loading_error).text = e.toString()
-        }
-        webView.loadUrl(group.href)
+        MusicItemGet(listener,group).start()
     }
 }

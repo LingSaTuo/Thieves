@@ -10,8 +10,9 @@ class Song {
     private var type = ""
     private var size = ""
     private var fileurl = ""
-    constructor():this("","",0,"","","","","","")
-    constructor(title:String,filename:String,duration:Int,singer:String,album:String,year:String,type:String,size:String,fileurl :String){
+    private var albumicon =""
+    constructor():this("","",0,"","","","","","","")
+    constructor(title:String,filename:String,duration:Int,singer:String,album:String,year:String,type:String,size:String,fileurl :String,icon:String){
         this.title = title
         this.filename = filename
         this.duration = duration
@@ -21,10 +22,12 @@ class Song {
         this.album = album
         this.size = size
         this.fileurl = fileurl
+        this.albumicon = icon
     }
     fun setAlbum(album: String){
         this.album
     }
+    fun getAlbumIcon() = albumicon
     fun setSize(size: String){
         this.size = size
     }

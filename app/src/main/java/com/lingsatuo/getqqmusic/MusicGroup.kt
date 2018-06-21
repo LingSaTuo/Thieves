@@ -5,6 +5,7 @@ import java.io.Serializable
 class MusicGroup :Serializable {
     var icon = ""//封面
     var title =""//标题
+    var num = 0//列表内数量
     var href=""//链接
     var amount = ""//播放次数
     var disstid = ""//disstid

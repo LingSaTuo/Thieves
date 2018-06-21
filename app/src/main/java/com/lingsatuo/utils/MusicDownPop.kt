@@ -74,8 +74,8 @@ class MusicDownPop(private var activity: Activity, private var item: MusicItem) 
         view.findViewById<LinearLayout>(R.id.dl_mp3).setOnClickListener(this)
         view.findViewById<LinearLayout>(R.id.dl_ogg).setOnClickListener(this)
         view.findViewById<LinearLayout>(R.id.dl_mp3h).setOnClickListener(this)
-        view.findViewById<LinearLayout>(R.id.dl_fac).setOnClickListener {}
-        view.findViewById<LinearLayout>(R.id.dl_ape).setOnClickListener {}
+        view.findViewById<LinearLayout>(R.id.dl_fac).setOnClickListener(this)
+        view.findViewById<LinearLayout>(R.id.dl_ape).setOnClickListener(this)
     }
 
     private fun download(url: String) {

@@ -73,6 +73,17 @@
                     android:padding="10dp"
                     android:src="@mipmap/share"
                     android:tint="@color/colorPrimary" />
+                <ImageView
+                    android:id="@+id/play_activity_clone"
+                    style="@style/ImageViewStyle"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:padding="10dp"
+                    android:visibility="gone"
+                    android:src="@mipmap/clone"
+                    android:tint="@color/colorPrimary" />
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 

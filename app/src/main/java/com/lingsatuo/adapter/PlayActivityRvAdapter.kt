@@ -9,63 +9,85 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
 import com.lingsatuo.getqqmusic.MusicItem
 import com.lingsatuo.service.MusicService
 import com.lingsatuo.thieves.R
 
-class PlayActivityRvAdapter (var context: Context): RecyclerView.Adapter<ItemViewII>(){
+class PlayActivityRvAdapter(var context: Context) : RecyclerView.Adapter<ItemViewII>() {
     private var mdata = ArrayList<MusicItem>()
     private var hand = View(context)
-    private var listener :(Int, View)->Unit = { _, _->}
+    private var listener: (Int, View) -> Unit = { _, _ -> }
 
     override fun getItemViewType(position: Int): Int {
         return if (position == 0) 0
         else 1
     }
-    fun setData(mdata:ArrayList<MusicItem>){
+
+    fun setData(mdata: ArrayList<MusicItem>) {
         this.mdata.clear()
         this.mdata.add(MusicItem())
         this.mdata.addAll(mdata)
     }
-    fun setHand(view: View){
+
+    fun setHand(view: View) {
         hand = view
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewII {
-        return if(viewType != 0) ItemViewII(LayoutInflater.from(context).inflate(R.layout.playlist_content_listitem,parent,false),listener)
-        else ItemViewII(hand,listener)
+        return if (viewType != 0) ItemViewII(LayoutInflater.from(context).inflate(R.layout.playlist_content_listitem, parent, false), listener)
+        else ItemViewII(hand, listener)
     }
 
     //当view划出屏幕时清除icon控件，避免封面错位
     override fun onViewRecycled(holder: ItemViewII) {
-//        Glide.clear(holder.getIcon())
+        if (holder.getIcon()!=null)
+        Glide.clear(holder.getIcon())
         super.onViewRecycled(holder)
     }
-    fun setOnItemClickListener(listener:(Int, View)->Unit){
+
+    fun setOnItemClickListener(listener: (Int, View) -> Unit) {
         this.listener = listener
     }
-    fun getItem(postion:Int): MusicItem {
+
+    fun getItem(postion: Int): MusicItem {
         return mdata[postion]
     }
 
     override fun getItemCount() = mdata.size
 
     override fun onBindViewHolder(holder: ItemViewII, position: Int) {
-        if (position == 0)return
+        if (position == 0) return
         holder.setMusicGroup(getItem(position))
     }
 }
-class ItemViewII(private var view: View, listener:(Int, View)->Unit): RecyclerView.ViewHolder(view) {
+
+class ItemViewII(private var view: View, listener: (Int, View) -> Unit) : RecyclerView.ViewHolder(view) {
 
     fun setMusicGroup(musicitem: MusicItem) {
         setTitle(musicitem.title)
-        setSubTitle(musicitem.getSingers()+" - "+musicitem.album)
-        if (MusicService.instance?.item?.singmid?.equals(musicitem.singmid) == true){
+        setSubTitle(musicitem.getSingers() + " - " + musicitem.album)
+        view.findViewById<ImageView>(R.id.list_item_album_icon).setImageResource(R.mipmap.album_d)
+        setIcon(musicitem.icon)
+        if (MusicService.instance?.item?.singmid?.equals(musicitem.singmid) == true) {
             view.findViewById<ImageView>(R.id.playlist_item_more).visibility = View.VISIBLE
             view.findViewById<ImageView>(R.id.playlist_item_more).setImageResource(R.mipmap.playing)
-        }else
+        } else
             view.findViewById<ImageView>(R.id.playlist_item_more).setImageResource(R.mipmap.more)
     }
-    //    fun getIcon() = view.findViewById<ImageView>(R.id.playlist_icon)!!
+
+    fun setIcon(icon: String) {
+        Glide.with(view.context)
+                .load(icon)
+                .asBitmap()
+                .placeholder(R.mipmap.album_d)
+                .priority(Priority.HIGH)
+                .error(R.mipmap.album_d)
+                .into(getIcon())
+    }
+
+    fun getIcon() = view.findViewById<ImageView>(R.id.list_item_album_icon)
     fun setTitle(title: String) {
         view.findViewById<TextView>(R.id.playlist_item_title).text = title
     }

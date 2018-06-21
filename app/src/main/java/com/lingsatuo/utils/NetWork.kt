@@ -23,6 +23,7 @@ class NetWork {
             }
             return bos.toByteArray()
         } catch (e: Throwable) {
+            e.printStackTrace()
             return "".toByteArray()
         }
     }

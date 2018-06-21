@@ -58,7 +58,8 @@ open class MPlaylistActivityRvAdapter(var context: Activity) : RecyclerView.Adap
 
     //当view划出屏幕时清除icon控件，避免封面错位
     override fun onViewRecycled(holder: ItemViewI) {
-//        Glide.clear(holder.getIcon())
+        if (holder.getIcon()!=null)
+        Glide.clear(holder.getIcon())
         super.onViewRecycled(holder)
     }
 
@@ -89,9 +90,11 @@ class ItemViewI(private var view: View, listener: (Int, View) -> Unit) : Recycle
     fun setMusicGroup(musicitem: MusicItem) {
         setTitle(musicitem.title)
         setSubTitle(musicitem.getSingers() + " - " + musicitem.album)
+        view.findViewById<ImageView>(R.id.list_item_album_icon).setImageResource(R.mipmap.album_d)
+        setIcon(musicitem.icon)
         if (MusicService.instance?.item?.singmid == musicitem.singmid){
             view.findViewById<TextView>(R.id.playlist_item_title).setTextColor(view.context.resources.getColor(R.color.colorAccent))
-            view.findViewById<TextView>(R.id.playlist_item_subtitle).setTextColor(view.context.resources.getColor(R.color.progressbar_sec))
+            view.findViewById<TextView>(R.id.playlist_item_subtitle).setTextColor(view.context.resources.getColor(R.color.sub_colorAcc))
             view.findViewById<ImageView>(R.id.playlist_item_more).imageTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context,R.color.colorAccent))
         }else{
             view.findViewById<TextView>(R.id.playlist_item_title).setTextColor(view.context.resources.getColor(R.color.button_textColor))
@@ -101,16 +104,16 @@ class ItemViewI(private var view: View, listener: (Int, View) -> Unit) : Recycle
     }
 
     fun setIcon(uri: String) {
-//        val icon = view.findViewById<ImageView>(R.id.playlist_icon)
-//        Glide.with(view.context)
-//                .load(uri)
-//                .asBitmap()
-//                .placeholder(R.mipmap.loading)
-//                .priority(Priority.HIGH)
-//                .into(icon)
+        Glide.with(view.context)
+                .load(uri)
+                .asBitmap()
+                .placeholder(R.mipmap.album_d)
+                .priority(Priority.HIGH)
+                .error(R.mipmap.album_d)
+                .into(getIcon())
     }
 
-    //    fun getIcon() = view.findViewById<ImageView>(R.id.playlist_icon)!!
+    fun getIcon() = view.findViewById<ImageView>(R.id.list_item_album_icon)
     fun setTitle(title: String) {
         view.findViewById<TextView>(R.id.playlist_item_title).text = title
     }

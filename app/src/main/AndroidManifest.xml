@@ -61,6 +61,10 @@
             android:exported="true"
             android:label="@string/app_name"
             />
+        <activity android:name=".Top100"
+            android:exported="true"
+            android:label="@string/app_name"
+            />
         <receiver android:name="com.lingsatuo.receiver.NotifictionReceiver">
             <intent-filter>
                 <action android:name="musicone_pause_play"/>

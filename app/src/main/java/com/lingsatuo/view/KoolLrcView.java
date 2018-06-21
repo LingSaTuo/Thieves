@@ -32,7 +32,7 @@ public class KoolLrcView extends View {
     private float mTextCenterY;//baseline和文字中线的偏移  0,0时  就是y
     private float mTextLineDis = 20;//行距
     private float mHighLightTextCenterY;//画高亮文字的起始Y
-    private float mTextSize = 35;
+    private float mTextSize = 30;
     private int mNormalTextColor = Color.GRAY;
     private int mHighLightTextColor = Color.GREEN;
     private int mUpOrDownViewCanDrawLines;//
@@ -254,8 +254,13 @@ public class KoolLrcView extends View {
 
     public void setLrcStr(String lrcStr) {
         mLrcAllLineBeanList.clear();
+        mNowPlayLinePos = 0;
+        mAnimateChangeY = 0;
         LrcFactory.Builder lb = new LrcFactory.Builder("");
         lb.readLine(lrcStr);
+        if (valueAnimator != null && valueAnimator.isRunning()) {
+            valueAnimator.end();
+        }
         mLrcAllLineBeanList.addAll(lb.getRoot());
         invalidate();
     }

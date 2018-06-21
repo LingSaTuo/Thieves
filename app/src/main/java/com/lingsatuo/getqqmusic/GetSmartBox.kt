@@ -17,7 +17,7 @@ class GetSmartBox(private var keywords: String,private var listener:(ArrayList<S
             return
         }
         try {
-            val mkeywords = keywords.replace(" ", "%20")
+            val mkeywords = keywords.replace(" ", "%20").replace("&","%26")
             val href = "https://c.y.qq.com/splcloud/fcgi-bin/smartbox_new.fcg?is_xml=0&format=jsonp&key=$mkeywords&g_tk=5381&jsonpCallback=SmartboxKeysCallbackmod_search9941&loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0"
             val str = NetWork().getBytes(href)
             get(String(str))

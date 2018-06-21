@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:id="@+id/searchview"
         android:backgroundTint="@color/play_activity_pop_back"
-        app:floatingSearch_leftActionMode="showHamburger"
+        app:floatingSearch_leftActionMode="noLeftAction"
         app:floatingSearch_showSearchKey="false"
         app:floatingSearch_dismissOnOutsideTouch="true"
         app:floatingSearch_close_search_on_keyboard_dismiss="true"

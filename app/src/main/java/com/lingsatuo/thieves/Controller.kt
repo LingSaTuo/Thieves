@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Message
+import android.widget.Toast
 import com.lingsatuo.getqqmusic.MusicItem
 import com.lingsatuo.getqqmusic.RunOnUiThread
 import com.lingsatuo.service.MusicService
@@ -14,6 +15,8 @@ object Controller {
     init {
         bandProgress()
     }
+    private var error=0
+    private var errortime = 0L
 
     var list = ArrayList<MusicItem>()
     private val df = DecimalFormat("####00")
@@ -73,6 +76,19 @@ object Controller {
     }
     private var mediaPlayer: MediaPlayer = MediaPlayer()
 
+    private fun canPlay():Boolean{
+        if(System.currentTimeMillis() - errortime <=100){
+            error++
+            errortime = System.currentTimeMillis()
+        }else{
+            error = 0
+        }
+        if (error >2){
+            return false
+        }
+        return true
+    }
+
     fun addStateChangeListener(listener: (Type) -> Unit) {
         if (!statelistener.contains(listener)) {
             statelistener.add(listener)
@@ -108,9 +124,12 @@ object Controller {
         if (mediaPlayer.isPlaying) mediaPlayer.stop()
         this.mediaPlayer = mediaPlayer
         mediaPlayer.setOnCompletionListener {
+            if(canPlay())
             listener.invoke(Controller.Type.NEXT)
         }
+        mediaPlayer.setOnErrorListener(null)
         mediaPlayer.setOnBufferingUpdateListener { mp, percent ->
+            if (percent < 20) return@setOnBufferingUpdateListener
             for (index in 0 until bufferingUpdateListener.size) {
                 if (index < bufferingUpdateListener.size) {
                     RunOnUiThread {
@@ -137,7 +156,7 @@ object Controller {
         val handler = @SuppressLint("HandlerLeak")
         object : Handler() {
             override fun handleMessage(msg: Message) {
-                if (MusicService.instance?.isReady() == true) {
+                if (MusicService.player.isPlaying) {
                     try {
                         val t = MusicService.player.currentPosition
                         val l = MusicService.player.duration

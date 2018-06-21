@@ -10,9 +10,18 @@
         android:id="@+id/player_activity_nodata"
         android:clickable="true"
         android:layout_centerInParent="true"
-        android:src="@mipmap/donate"
+        android:src="@mipmap/nodata"
         android:layout_height="120dp"
         android:focusable="true" />
+    <com.lingsatuo.widget.XTextView
+        android:layout_width="wrap_content"
+        android:layout_below="@id/player_activity_nodata"
+        android:text="@string/nodata"
+        android:textSize="22sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:textColor="@color/button_textColor"
+        android:layout_height="wrap_content" />
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/player_activity_list"

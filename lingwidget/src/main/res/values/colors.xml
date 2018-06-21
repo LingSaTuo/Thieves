@@ -18,4 +18,5 @@
     <color name="progressbar_back">#ab282828</color>
     <color name="progressbar_sec">#3b02dccd</color>
     <color name="progressbar_color">#02b1a5</color>
+    <color name="sub_colorAcc">#ca02b1a5</color>
 </resources>

@@ -23,6 +23,7 @@ object Shar2WeiChat {
         har(activity,musicItem,1)
     }
     private fun har(activity: Activity,musicItem: MusicItem,type:Int){
+        println(musicItem.toString())
         val music = WXWebpageObject()
         music.webpageUrl  = musicItem.href
         val msg = WXMediaMessage()

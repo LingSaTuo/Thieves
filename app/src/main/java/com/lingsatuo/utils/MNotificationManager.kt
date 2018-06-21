@@ -17,6 +17,7 @@ import com.lingsatuo.receiver.NotifictionReceiver
 import com.lingsatuo.service.MusicService
 import com.lingsatuo.thieves.Controller
 import com.lingsatuo.thieves.R
+import java.io.File
 
 object MNotificationManager {
     fun show(context: Context) {
@@ -76,10 +77,18 @@ object MNotificationManager {
             }
             rv.setTextViewText(R.id.notifiction_title, MusicService.instance?.item?.title)
             rv.setTextViewText(R.id.notifiction_subtitle, MusicService.instance?.item?.getSingers())
-            notificationManager.notify(R.string.app_name, notification)
             Thread(Runnable {
-                val byteArray = NetWork().getBytes(MusicService.instance?.item?.albumicon
-                        ?: return@Runnable)
+                val item = MusicService.instance?.item
+                val byteArray = if (item?.albumicon?.startsWith("h")==true)
+                NetWork().getBytes(item.albumicon)
+                else {
+                    try {
+                        println(item?.albumicon)
+                        File(item?.albumicon).readBytes()
+                    }catch (e:Throwable){
+                        NetWork().getBytes("http://musicone-1253269015.coscd.myqcloud.com/9AB05C66154C4C2D975C53B3BFC43E76.png")
+                    }
+                }
                 if (byteArray.size < 1024)return@Runnable
                 val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
                 RunOnUiThread {

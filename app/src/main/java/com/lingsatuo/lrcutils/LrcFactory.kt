@@ -36,7 +36,7 @@ object LrcFactory {
             val patterns = Pattern.compile("(?<=\\[)(\\d+:\\d+\\.\\d+)(?=\\])")
             val matcher = patterns.matcher(str)
             if (matcher.find()) {
-                val ts = matcher.group().replace("&apos;","'")
+                val ts = matcher.group()
                 val m = ts.split(":")[0]
                 val s = ts.split(":")[1].split(".")[0]
                 val ms = ts.split(":")[1].split(".")[1]
@@ -51,10 +51,10 @@ object LrcFactory {
                 val patterns = Pattern.compile("(?<=\\[)\\S*(?=\\])")
                 val matcher = patterns.matcher(str)
                 if (matcher.find()) {
-                    return matcher.group().split(":")[1]
+                    return matcher.group().split(":")[1].replace("&apos;","'")
                 }
             } else {
-                return lines[1]
+                return lines[1].replace("&apos;","'")
             }
             return "--------"
         }

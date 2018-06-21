@@ -28,7 +28,7 @@ class GetLrcQQMusic(private var item:MusicItem,private var lis:(String,Throwable
             huc.doOutput = true
             huc.doInput = true
             huc.useCaches = false
-            huc.requestMethod = "POST"
+            huc.requestMethod = "GET"
             huc.setRequestProperty("Charset", "UTF-8")
             huc.setRequestProperty("contentType", "application/json")
             huc.connect()
@@ -46,6 +46,7 @@ class GetLrcQQMusic(private var item:MusicItem,private var lis:(String,Throwable
             buffered.close()
             iis.close()
             val lrc = getLrc(s.toString())
+            huc.disconnect()
             RunOnUiThread{
                 lis.invoke(lrc,null)
             }
@@ -55,7 +56,7 @@ class GetLrcQQMusic(private var item:MusicItem,private var lis:(String,Throwable
             }
         }
     }
-    private fun getid(jsonSource:String):String{
+    private fun getid(jsonSource:String):Int{
         val patterns  = Pattern.compile("\\{[.*\\S\\s]+\\}")
         val matcher = patterns.matcher(jsonSource)
         if (matcher.find()) {
@@ -63,9 +64,9 @@ class GetLrcQQMusic(private var item:MusicItem,private var lis:(String,Throwable
             val json = JSONObject(root)
             val data = json.getJSONArray("data")
             val id = data.getJSONObject(0).getInt("id")
-            return "$id"
+            return id
         }
-        return ""
+        return 0
     }
     private fun getLrc(jsonSource: String):String{
         val root = JSONObject(jsonSource)

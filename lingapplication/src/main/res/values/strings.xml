@@ -2,4 +2,5 @@
     <string name="app_name">MusicOne</string>
     <string name="crash">哎呀，崩了呢</string>
     <string name="crash_sub">意料之外的崩溃呢</string>
+    <string name="nodata"> </string>
 </resources>

@@ -14,16 +14,16 @@ class GetMusicAbsPath(private var item :MusicItem,private var quality:GetMusicFi
                 }
                 return
             }
-            val filename = GetMusicFileName.getName(quality, item)
-            item.filename = filename
+            item.filename = GetMusicFileName.getName(quality,item)
             val vkg = VKeyGeter(item)
             val fcgfile = vkg.toString()
             val bytes = NetWork().getBytes(fcgfile)
             val json = String(bytes)
             val key = getVkey(json)
             item.vkey = key
-            val path = "http://dl.stream.qqmusic.qq.com/" + filename + "?vkey=" + key + "&guid=" + vkg.getGuid() + "&fromtag=" + vkg.getfromtag();
+            val path = "http://dl.stream.qqmusic.qq.com/" + item.filename + "?vkey=" + key + "&guid=" + vkg.getGuid()+"&uin="+vkg.getuin() + "&fromtag=" + vkg.getfromtag()
             RunOnUiThread{
+                println(path)
                 listener.invoke(path)
             }
             super.run()
@@ -32,6 +32,7 @@ class GetMusicAbsPath(private var item :MusicItem,private var quality:GetMusicFi
         }
     }
     private fun getVkey(jsonSource:String):String{
+        println(jsonSource)
         val patterns  = Pattern.compile("\\{[.*\\S\\s]+\\}")
         val matcher = patterns.matcher(jsonSource)
         if (matcher.find()){

@@ -48,9 +48,11 @@ class GetSinerSongList(private var singer: MusicItem.Singer, private val page: I
                     val musicitem = MusicItem()
                     val musicdata = list.getJSONObject(index).getJSONObject("musicData")
                     musicitem.album = musicdata.getString("albumname")
-                    musicitem.albumid = musicdata.getString("albummid")
+                    musicitem.albummid = musicdata.getString("albummid")
+                    musicitem.icon = musicitem.albummid
                     musicitem.title = musicdata.getString("songname")
                     musicitem.singmid = musicdata.getString("songmid")
+                    musicitem.strMediaMid = musicdata.getString("strMediaMid")
                     musicitem.href = "https://y.qq.com/n/yqq/song/${musicitem.singmid}.html"
                     getSinger(musicitem, musicdata.getJSONArray("singer"))
                     listi.add(musicitem)
@@ -62,7 +64,7 @@ class GetSinerSongList(private var singer: MusicItem.Singer, private val page: I
             for (a in 0 until singers.length()) {
                 val sings = MusicItem.Singer()
                 sings.singer = singers.getJSONObject(a).getString("name")
-                sings.singerid = singers.getJSONObject(a).getString("id")
+                sings.singerid = singers.getJSONObject(a).getInt("id")
                 sings.singermid = singers.getJSONObject(a).getString("mid")
                 sings.singerhref = "https://y.qq.com/n/yqq/singer/${sings.singermid}.html"
                 musicItem.singer.add(sings)

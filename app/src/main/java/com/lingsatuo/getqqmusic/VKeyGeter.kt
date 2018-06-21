@@ -20,7 +20,7 @@ class VKeyGeter(private var item: MusicItem) {
     fun getuin() = "0"
     fun getsingmid() = item.singmid
     fun getfilename() = item.filename
-    fun getfromtag() = "30"
+    fun getfromtag() = "53"
     fun getGuid() = "1513209721127"
     override fun toString(): String = "${getHref()}g_tk=${getG_TK()}&jsonpCallback=${getjsonpCallback()}&loginUin=${getloginUin()}&hostUin=${gethostUin()}&format=${getformat()}&inCharset=${getinCharset()}&outCharset=${getoutCharset()}&" +
             "notice=${getnotice()}&platform=${getplatform()}&needNewCode=${getneedNewCode()}&cid=${getCid()}&callback=${getcallback()}&uin=${getuin()}&songmid=${getsingmid()}&filename=${getfilename()}&guid=${getGuid()}"

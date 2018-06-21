@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/play_activity_list_item"
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:id="@+id/play_activity_list_item"
     android:orientation="horizontal"
     android:padding="4dp">
 
@@ -14,14 +14,15 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:cardCornerRadius="2dp"
-        app:cardElevation="4dp"
+        app:cardElevation="2dp"
         app:cardUseCompatPadding="true">
 
         <ImageView
-            android:layout_width="56dp"
+            android:id="@+id/list_item_album_icon"
+            android:layout_width="42dp"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:visibility="gone" />
+            android:src="@mipmap/album_d" />
     </android.support.v7.widget.CardView>
 
     <RelativeLayout
@@ -36,23 +37,23 @@
             android:orientation="vertical">
 
             <com.lingsatuo.widget.XTextView
+                android:id="@+id/playlist_item_title"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="bottom"
-                android:lines="1"
                 android:layout_marginEnd="66dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:lines="1"
                 android:text="TITLE"
-                android:id="@+id/playlist_item_title"
                 android:textColor="@color/button_textColor"
                 android:textSize="12sp" />
 
             <com.lingsatuo.widget.XTextView
+                android:id="@+id/playlist_item_subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:id="@+id/playlist_item_subtitle"
                 android:layout_marginEnd="66dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:lines="1"
                 android:text="SubTitle"
@@ -62,26 +63,27 @@
             <com.lingsatuo.widget.XTextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3"
                 android:layout_marginEnd="66dp"
+                android:layout_weight="3"
                 android:text="ThirdTitle"
-                android:visibility="gone"
                 android:textColor="@color/button_textColor"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone" />
         </LinearLayout>
+
         <ImageView
+            android:id="@+id/playlist_item_more"
             android:layout_width="40dp"
-            android:padding="8dp"
-            android:layout_marginEnd="12dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:tint="@color/img_tint"
-            android:src="@mipmap/more"
-            android:id="@+id/playlist_item_more"
+            android:layout_marginEnd="12dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
+            android:padding="8dp"
             android:scaleType="centerInside"
-            android:layout_height="40dp" />
+            android:src="@mipmap/more"
+            android:tint="@color/img_tint" />
     </RelativeLayout>
 </LinearLayout>

@@ -48,6 +48,7 @@ class MainActivity : BaseActivity() {
         mbph.setProgress(c)
     }
     private val mediaplayerbufferingupdate: (MediaPlayer, Int) -> Unit = { m, i ->
+        if (m.isPlaying)
         findViewById<MusicProgressBarH>(R.id.card_progress)?.setSecondaryProgress((i / 100f * m.duration).toInt())
     }
 
