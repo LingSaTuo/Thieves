@@ -30,6 +30,9 @@ class MPlaylistAdapter(var context: Context):RecyclerView.Adapter<ItemView>(){
     fun setData(mdata:ArrayList<MusicGroup>){
         this.mdata = mdata
     }
+    fun addData(mdata:ArrayList<MusicGroup>){
+        this.mdata.addAll(mdata)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemView = ItemView(LayoutInflater.from(context).inflate(R.layout.rec_listitem,parent,false),listener)
 
     //当view划出屏幕时清除icon控件，避免封面错位

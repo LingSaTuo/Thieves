@@ -31,7 +31,7 @@
                     android:tint="@color/img_tint"
                     android:src="@mipmap/menu"
                     android:layout_gravity="start|center_vertical"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"
                     android:scaleType="centerInside" />

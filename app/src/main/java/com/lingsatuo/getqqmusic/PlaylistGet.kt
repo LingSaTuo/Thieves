@@ -36,7 +36,7 @@ class PlaylistGet() {
         group.disstid = jsonObject.getString("content_id")
         group.icon = jsonObject.getString("cover")
         group.href = "https://y.qq.com/n/yqq/playlist/${group.disstid}.html#stat=y_new.index.playlist.pic"
-        group.title = jsonObject.getString("title")
+        group.title = jsonObject.getString("title").replace("&amp;","&")
         group.amount = jsonObject.getInt("listen_num").toString()
         list.add(group)
     }

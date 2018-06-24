@@ -27,7 +27,6 @@ class UncaughtExceptionHandler private constructor() : Thread.UncaughtExceptionH
         bug.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         bug.putExtra(ERRORKEY,p1)
         contxet?.startActivity(bug)
-        LingBaseTop.exitApp()
         Process.killProcess(Process.myPid())
     }
     fun init(){

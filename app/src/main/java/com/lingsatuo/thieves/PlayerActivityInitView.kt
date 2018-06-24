@@ -24,6 +24,7 @@ import jp.wasabeef.glide.transformations.BlurTransformation
 class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
     private var seekBar: MusicSeekBar? = null
     private var ontouch = false
+    private var size = 0;
     private var dont_touch_me: (View) -> Unit = { v ->
         I_LOVE_U.onClick(playerActivity, v)
     }
@@ -88,10 +89,15 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
 //                    .into(playerActivity.findViewById(R.id.player_activity_nodata))
         }
         adapter.setData(Controller.list)
+        this.size = Controller.list.size
         val rv = playerActivity.findViewById<RecyclerView>(R.id.player_activity_list)
         rv.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL)
         rv.adapter = adapter
         adapter.setOnItemClickListener { i, view ->
+            if (this.size!=Controller.list.size){
+                adapter.setData(Controller.list)
+                this.size = Controller.list.size
+            }
             when (view.id) {
                 R.id.playlist_item_more -> {
 
@@ -124,7 +130,7 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
                     val item = MusicService.instance?.item
                     if (item != null) {
                         if (item.title != "")
-                            MusicDownPop(playerActivity, item).show(v)
+                            MusicDownPop(playerActivity, item).showDialog()
                     }
                 }
                 GetLrcQQMusic(MusicService.instance?.item!!, { lec, e ->
@@ -191,7 +197,7 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
             val item = MusicService.instance?.item
             if (item?.isloca == true) return@setOnClickListener
             if (item?.title != "")
-                SongInfoShowPop(playerActivity, item!!).show(v)
+                SongInfoShowPop(playerActivity, item!!).show()
         }
         playerActivity.findViewById<ImageView>(R.id.play_activity_share).setOnClickListener { v ->
             SharePop(playerActivity, v).show()

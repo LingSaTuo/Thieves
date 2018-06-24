@@ -22,18 +22,15 @@ import com.lingsatuo.thieves.SingerInfoActivity
 import com.lingsatuo.widget.XTextView
 
 class SongInfoShowPop (private var activity : Activity,private var musicitem:MusicItem) {
-    private var pop: PopupWindow
     private val view: View = LayoutInflater.from(activity).inflate(R.layout.songinfo, null, false)
-
+    private var dia:AlertDialog
     init {
-        pop = PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
-        pop.setBackgroundDrawable(ColorDrawable(0x00ffffff))
-        pop.isOutsideTouchable = true
-        pop.animationStyle = R.style.down_load_menu
+        dia = AlertDialog.Builder(activity)
+                .setView(view)
+                .show()
     }
 
-    fun show(v: View) {
-        pop.showAtLocation(v, Gravity.BOTTOM or Gravity.CENTER, 0, 0)
+    fun show() {
         view.findViewById<XTextView>(R.id.songinfo_title).text = musicitem.title
         view.findViewById<XTextView>(R.id.songinfo_singers).text = musicitem.getSingers()
         view.findViewById<XTextView>(R.id.songinfo_album).text = musicitem.album
@@ -45,11 +42,14 @@ class SongInfoShowPop (private var activity : Activity,private var musicitem:Mus
                 intent.putExtra("item",musicitem.singer[0])
                 activity.startActivity(intent)
             }
-            pop.dismiss()
+            dia.dismiss()
         }
         view.findViewById<LinearLayout>(R.id.songinfo_album_).setOnClickListener {
 
         }
+        dia.window.setGravity(Gravity.BOTTOM)
+        dia.window.setWindowAnimations(R.style.down_load_menu)
+        dia.window.setBackgroundDrawableResource(R.drawable.share_card)
     }
 
     private fun showSingers(){

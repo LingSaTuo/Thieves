@@ -24,7 +24,7 @@ class Top100 : BaseActivity (){
         setSupportActionBar(findViewById(R.id.toolbar))
         val adapter = MPlaylistActivityRvAdapter(this)
         val rv = findViewById<RecyclerView>(R.id.playlist_rv)
-        val group = intent.getSerializableExtra("MUSICGROUP") as MusicGroup
+        val group = intent.getSerializableExtra("GROUP") as MusicGroup
         findViewById<XTextView>(R.id.title).text = group.title
         rv.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL)
         rv.adapter = adapter

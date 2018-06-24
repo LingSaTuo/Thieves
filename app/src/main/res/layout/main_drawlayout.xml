@@ -50,10 +50,14 @@
                     android:background="@color/alpha"
                     android:padding="10dp">
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="62dp"
                         android:layout_height="62dp"
-                        android:scaleType="centerInside"
+                        android:focusable="true"
+                        android:id="@+id/login"
+                        android:layout_marginStart="12dp"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:clickable="true"
                         android:layout_marginTop="50dp"
                         android:src="@mipmap/user_icon" />
 
@@ -63,7 +67,8 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="6dp"
                         android:lines="1"
-                        android:text="笃慕开发组"
+                        android:id="@+id/user_name"
+                        android:text="点击设置代理"
                         android:textColor="#ededed"
                         android:textSize="16sp" />
                 </RelativeLayout>
@@ -133,21 +138,21 @@
                         android:orientation="horizontal"
                         android:clickable="true"
                         android:focusable="true"
-                        android:visibility="gone"
                         android:background="?android:attr/selectableItemBackground"
                         android:padding="4dp"
+                        android:id="@+id/join_us"
                         android:gravity="center_vertical"
                         android:layout_height="50dp">
                         <ImageView
                             android:layout_marginStart="18dp"
                             android:layout_width="20dp"
-                            android:src="@mipmap/upg"
+                            android:src="@mipmap/join_us"
                             android:tint="@color/button_textColor"
                             android:layout_height="20dp" />
                         <com.lingsatuo.widget.XTextView
                             android:layout_width="match_parent"
                             android:gravity="center_vertical"
-                            android:text="检查更新"
+                            android:text="加入测试"
                             android:lines="1"
                             android:layout_marginStart="24dp"
                             android:textColor="@color/button_textColor"

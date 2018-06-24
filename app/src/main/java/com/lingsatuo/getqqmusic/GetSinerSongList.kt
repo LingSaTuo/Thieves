@@ -64,22 +64,19 @@ class GetSinerSongList(private var singer: MusicItem.Singer, private val page: I
 
 
         private fun getFileSize(item: MusicItem,file:JSONObject){
-            val m4al = file.getInt("size_aac")
-            if (m4al!=0)
-                item.filesize.put(GetMusicFileName.Quality.M4AH,"${String.format("%.2f",(m4al/1024f/1024))}MB")
-            val mp3h = file.getInt("size_320")
+         val mp3h = file.getInt("size320")
             if (mp3h!=0)
                 item.filesize.put(GetMusicFileName.Quality.MP3H,"${String.format("%.2f",(mp3h/1024f/1024))}MB")
-            val mp3 = file.getInt("size_128")
+            val mp3 = file.getInt("size128")
             if (mp3!=0)
                 item.filesize.put(GetMusicFileName.Quality.MP3,"${String.format("%.2f",(mp3/1024f/1024))}MB")
-            val ape = file.getInt("size_ape")
+            val ape = file.getInt("sizeape")
             if (ape!=0)
                 item.filesize.put(GetMusicFileName.Quality.APE,"${String.format("%.2f",(ape/1024f/1024))}MB")
-            val flac = file.getInt("size_flac")
+            val flac = file.getInt("sizeflac")
             if (flac!=0)
                 item.filesize.put(GetMusicFileName.Quality.FLAC,"${String.format("%.2f",(flac/1024f/1024))}MB")
-            val ogg = file.getInt("size_ogg")
+            val ogg = file.getInt("sizeogg")
             if (ogg!=0)
                 item.filesize.put(GetMusicFileName.Quality.OGG,"${String.format("%.2f",(ogg/1024f/1024))}MB")
         }

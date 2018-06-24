@@ -7,4 +7,14 @@
         android:bottomLeftRadius="8dp"
         android:bottomRightRadius="8dp"
         />
+    <stroke
+        android:color="#00000000"
+        android:width="24dp"
+        />
+    <padding
+        android:top="20dp"
+        android:left="20dp"
+        android:right="20dp"
+        android:bottom="20dp"
+        />
 </shape>

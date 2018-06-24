@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBack">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ling_toolbar_background"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="start|center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/menu"
+                    android:tint="@color/img_tint" />
+
+                <com.lingsatuo.widget.XTextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="@color/button_textColor" />
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:padding="24dp"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <com.lingsatuo.widget.XTextView
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:textSize="28sp"
+                android:id="@+id/selection_xxxx"
+                android:text="选择一个需要被代理的QQ账号"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="24dp"
+                android:layout_width="match_parent"
+                android:layout_below="@id/selection_xxxx"
+                android:visibility="gone"
+                android:id="@+id/local_list"
+                android:layout_height="wrap_content"/>
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:id="@+id/selection_loading"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+    <ImageView
+        android:layout_width="@dimen/dubug_width"
+        android:layout_height="@dimen/dubug_width"
+        android:scaleType="centerInside"
+        android:src="@mipmap/debug" />
+</FrameLayout>

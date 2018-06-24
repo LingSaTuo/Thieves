@@ -14,7 +14,7 @@
     <color name="player_alpha">#753b3b3b</color>
     <color name="card_back">#a9a9a9</color>
     <color name="main_play_card_back">#b2a9a9a9</color>
-    <color name="play_activity_pop_back">#c9c9c9</color>
+    <color name="play_activity_pop_back">#ffffff</color>
     <color name="progressbar_back">#ab282828</color>
     <color name="progressbar_sec">#3b02dccd</color>
     <color name="progressbar_color">#02b1a5</color>

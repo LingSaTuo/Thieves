@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.support.v7.app.AlertDialog
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.PopupWindow
@@ -54,23 +55,29 @@ class MusicDownPop(private var activity: Activity, private var item: MusicItem) 
         }).start()
     }
 
-    private var pop: PopupWindow
     private val view: View = LayoutInflater.from(activity).inflate(R.layout.download_layout, null, false)
     private var root:LinearLayout
     init {
-        pop = PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
-        pop.isOutsideTouchable = true
-        pop.setBackgroundDrawable(ColorDrawable(0x00ffffff))
-        pop.animationStyle = R.style.down_load_menu
         root = view.findViewById(R.id.down_root)
     }
 
-    fun show(v: View) {
+    fun showDialog(){
         if (item.isloca) {
             Toast.makeText(activity, "你去桶里打桶水吧！（这是本地歌曲）", Toast.LENGTH_SHORT).show()
             return
         }
-        pop.showAtLocation(v, Gravity.BOTTOM, 0, 0)
+        val dia = AlertDialog.Builder(view.context)
+                .setView(view)
+                .show()
+        init()
+        dia.window.setGravity(Gravity.BOTTOM)
+        dia.window.setWindowAnimations(R.style.down_load_menu)
+        dia.window.setBackgroundDrawableResource(R.drawable.share_card)
+    }
+
+
+
+    private fun init() {
         for (key in item.filesize.keys) {
             when(key){
                 GetMusicFileName.Quality.MP3->{

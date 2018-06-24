@@ -19,9 +19,9 @@ class LocalActivity : BaseActivity() {
         setContentView(R.layout.local_activity)
         setRootView(findViewById(R.id.root))
         setSupportActionBar(findViewById(R.id.toolbar))
+        findViewById<XTextView>(R.id.title).text = "本地歌曲"
         val adapter = MPlaylistActivityRvAdapter(this)
         val rv = findViewById<RecyclerView>(R.id.local_list)
-        findViewById<XTextView>(R.id.title).text = "本地歌曲"
         rv.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL)
         rv.adapter = adapter
         val basedata = SongScan.scan(this).getAlbum()

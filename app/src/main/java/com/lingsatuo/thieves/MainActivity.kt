@@ -3,6 +3,7 @@ package com.lingsatuo.thieves
 import android.Manifest
 import android.content.Intent
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.os.Process
 import android.support.v4.view.GravityCompat
@@ -10,24 +11,29 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.CardView
+import android.support.v7.widget.RecyclerView
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
+import com.lingsatuo.adapter.MPlaylistAdapter
+import com.lingsatuo.adapter.UserRvAdapter
 import com.lingsatuo.app.BaseActivity
+import com.lingsatuo.getqqmusic.FindUserList
 import com.lingsatuo.getqqmusic.GetItemInfo
 import com.lingsatuo.getqqmusic.RunOnUiThread
 import com.lingsatuo.service.MusicService
-import com.lingsatuo.songscan.Song
-import com.lingsatuo.songscan.SongScan
-import com.lingsatuo.utils.MNotificationManager
+import com.lingsatuo.utils.AccLoginCenter
+import com.lingsatuo.utils.SaveSatate
 import com.lingsatuo.widget.MusicProgressBarH
 import com.lingsatuo.widget.XTextView
 import com.tbruyelle.rxpermissions2.RxPermissions
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 class MainActivity : BaseActivity() {
+    private lateinit var drawer: DrawerLayout
     private val listener: (Controller.Type) -> Unit = { type ->
         val item = MusicService.instance?.item
         if (item != null) {
@@ -42,14 +48,33 @@ class MainActivity : BaseActivity() {
             findViewById<ImageView>(R.id.play_pause).setImageResource(R.mipmap.topause)
         }
     }
-    lateinit var mbph : MusicProgressBarH
-    private val bandProgress:(Int, Int, String, String) -> Unit = { c, d, n, r ->
+    private val loginlistener: (UserRvAdapter.User) -> Unit = { user ->
+        val adapter = findViewById<RecyclerView>(R.id.myplaylist_rv).adapter as MPlaylistAdapter
+        adapter.setData(MainActivityInitView.getLocalGroup())
+        if (user.qqnum != "") {
+            adapter.addData(user.list)
+            drawer.findViewById<XTextView>(R.id.user_name).text = user.name
+        } else {
+            drawer.findViewById<XTextView>(R.id.user_name).text = "点击设置代理"
+        }
+        adapter.notifyDataSetChanged()
+        Glide.with(this)
+                .load(user.usericon)
+                .asBitmap()
+                .placeholder(R.mipmap.user_icon)
+                .error(R.mipmap.user_icon)
+                .priority(Priority.HIGH)
+                .into(drawer.findViewById<CircleImageView>(R.id.login))
+    }
+
+    lateinit var mbph: MusicProgressBarH
+    private val bandProgress: (Int, Int, String, String) -> Unit = { c, d, n, r ->
         mbph.setMax(d)
         mbph.setProgress(c)
     }
     private val mediaplayerbufferingupdate: (MediaPlayer, Int) -> Unit = { m, i ->
         if (m.isPlaying)
-        findViewById<MusicProgressBarH>(R.id.card_progress)?.setSecondaryProgress((i / 100f * m.duration).toInt())
+            findViewById<MusicProgressBarH>(R.id.card_progress)?.setSecondaryProgress((i / 100f * m.duration).toInt())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,6 +107,7 @@ class MainActivity : BaseActivity() {
             Controller.removeStateListener(listener)
             Controller.removeBufferingUpdateListener(mediaplayerbufferingupdate)
             Controller.removeBandProgress(bandProgress)
+            AccLoginCenter.removeListener(loginlistener)
             super.onBackPressed()
         }
     }
@@ -91,7 +117,7 @@ class MainActivity : BaseActivity() {
         val width = wm.defaultDisplay.width
         val root = findViewById<CardView>(R.id.main_draw_root)
         root.layoutParams.width = (width * 0.85f).toInt()
-        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+        drawer = findViewById(R.id.drawer_layout)
         val toggle = ActionBarDrawerToggle(
                 this, drawer, findViewById(R.id.toolbar), R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.setDrawerListener(toggle)
@@ -105,8 +131,17 @@ class MainActivity : BaseActivity() {
                 }
             }).start()
         }
+        drawer.findViewById<CircleImageView>(R.id.login).setOnClickListener { v ->
+            startActivity(Intent(this, SelectionUser::class.java))
+            drawer.closeDrawers()
+        }
         drawer.findViewById<LinearLayout>(R.id.about).setOnClickListener {
             startActivity(Intent(this, AboutActivity::class.java))
+        }
+        drawer.findViewById<LinearLayout>(R.id.join_us).setOnClickListener {
+            val uri = Uri.parse("https://jq.qq.com/?_wv=1027&k=5xUSCP4")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
         }
     }
 
@@ -120,16 +155,28 @@ class MainActivity : BaseActivity() {
         }
         Controller.addStateChangeListener(listener)
         Controller.addBufferingUpdateListener(mediaplayerbufferingupdate)
+        AccLoginCenter.addOnLoginListener(loginlistener)
         GetPlaylist(this).getList()
         RxPermissions(this)
                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE
                         , Manifest.permission.READ_PHONE_STATE)
                 .subscribe({ get ->
                     if (get) {
+                        login()
                     }
                 })
     }
 
+    private fun login() {
+        val user = SaveSatate.readUserInfo(this)
+        if (user.qqnum != "") {
+            FindUserList(user, { list ->
+                if (list.size==1)
+                AccLoginCenter.invoke(list[0])
+                Toast.makeText(this,"代理接入",Toast.LENGTH_SHORT).show()
+            }).start()
+        }
+    }
 
     private fun setAlbum(path: String) {
         val img = findViewById<ImageView>(R.id.main_play_card_icon)

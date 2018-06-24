@@ -1,4 +1,5 @@
 package com.lingsatuo.service
+
 import android.app.*
 import android.os.*
 import android.content.*
@@ -8,7 +9,9 @@ import com.lingsatuo.getqqmusic.GetMusicFileName
 import com.lingsatuo.getqqmusic.MusicItem
 import com.lingsatuo.getqqmusic.RunOnUiThread
 import com.lingsatuo.thieves.Controller
+import com.lingsatuo.utils.FileUtils
 import com.lingsatuo.utils.MNotificationManager
+import java.io.File
 import java.util.ArrayList
 
 class MusicService : Service() {
@@ -17,8 +20,8 @@ class MusicService : Service() {
     var item = MusicItem()
     private var canplay = false
     var path: String? = null
-    private val bufferingupdate :(MediaPlayer,Int)->Unit={m,p->
-        if (p>30&&!m.isPlaying&&canplay) {
+    private val bufferingupdate: (MediaPlayer, Int) -> Unit = { m, p ->
+        if (p > 30 && !m.isPlaying && canplay) {
             play()
             canplay = false
         }
@@ -59,7 +62,7 @@ class MusicService : Service() {
     fun play() {
         val play = am!!.requestAudioFocus(afChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
         if (play == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-            RunOnUiThread{
+            RunOnUiThread {
                 Controller.listener.invoke(Controller.Type.PLAY)
             }
         }
@@ -74,14 +77,21 @@ class MusicService : Service() {
     fun start() {
         player.start()
     }
+
     private fun start(path: String) {
         this.path = path
         Thread(Runnable {
             player.reset()
             try {
                 canplay = true
-                player.setDataSource(path)
+                val tag = FileUtils.musicFileExists(item)
+                if (tag == "")
+                    player.setDataSource(path)
+                else player.setDataSource(tag)
                 player.prepare()
+                if (this@MusicService.item.isloca || tag != "") {
+                    bufferingupdate.invoke(player, 100)
+                }
             } catch (e: Throwable) {
                 e.printStackTrace()
             }
@@ -90,7 +100,7 @@ class MusicService : Service() {
 
     fun start(item: MusicItem) {
         this.item = item
-        GetMusicAbsPath(item, GetMusicFileName.Quality.M4AH, { path ->
+        GetMusicAbsPath(item, GetMusicFileName.Quality.MP3, { path ->
             start(path)
             for (lis in 0 until listeners.size) {
                 if (lis >= listeners.size) break
