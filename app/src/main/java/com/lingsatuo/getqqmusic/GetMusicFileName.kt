@@ -2,7 +2,13 @@ package com.lingsatuo.getqqmusic
 
 class GetMusicFileName {
     enum class Quality{
-        M4AL,M4AH,MP3,MP3H,OGG,FLAC,APE
+        M4AL,
+        M4AH,
+        MP3,
+        MP3H,
+        OGG,
+        FLAC,
+        APE
     }
     companion object {
         fun getName(quality: Quality,item: MusicItem) = when(quality){

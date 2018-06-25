@@ -18,7 +18,6 @@ class MusicService : Service() {
     val listeners = ArrayList<(MusicItem) -> Unit>()
     private var am: AudioManager? = null
     var item = MusicItem()
-    private var canplay = false
     var path: String? = null
     private val bufferingupdate: (MediaPlayer, Int) -> Unit = { m, p ->
         if (p > 30 && !m.isPlaying && canplay) {
@@ -32,6 +31,7 @@ class MusicService : Service() {
     companion object {
         var instance: MusicService? = null
         val player: MediaPlayer = MediaPlayer()
+        var canplay = true
     }
 
     override fun onCreate() {

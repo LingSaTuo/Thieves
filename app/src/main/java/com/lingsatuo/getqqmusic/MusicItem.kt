@@ -1,5 +1,6 @@
 package com.lingsatuo.getqqmusic
 
+import com.lingsatuo.getqqmusic.mv.MvItem
 import java.io.Serializable
 
 class MusicItem : Serializable {
@@ -7,7 +8,6 @@ class MusicItem : Serializable {
     var isloca = false//本地？
     var href = ""//链接
     var strMediaMid = ""//文件mid
-
     var icon: String = ""
         set(value) {
             field = if (isloca) value
@@ -17,7 +17,6 @@ class MusicItem : Serializable {
                 else "http://musicone-1253269015.coscd.myqcloud.com/9AB05C66154C4C2D975C53B3BFC43E76.png"
             }
         }
-
     var album = ""//专辑
     var albumid = 0//专辑 id
     var albummid = ""//专辑 mid
@@ -28,6 +27,7 @@ class MusicItem : Serializable {
     var singid = 0// id
     var filename = ""//文件名
     var filesize = HashMap<GetMusicFileName.Quality,String>()
+    var mvItem:MvItem?=null//MV信息
     var vkey = ""//Vkey
     override fun toString() = "$title   $href   $album  $singer  $mid  $singmid   $albumicon   $icon"
     class Singer : Serializable {

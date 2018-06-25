@@ -1,5 +1,6 @@
 package com.lingsatuo.getqqmusic
 
+import com.lingsatuo.getqqmusic.mv.MvItem
 import com.lingsatuo.utils.NetWork
 import org.json.JSONArray
 import org.json.JSONObject
@@ -53,6 +54,10 @@ class GetSinerSongList(private var singer: MusicItem.Singer, private val page: I
                     musicitem.title = musicdata.getString("songname")
                     musicitem.singmid = musicdata.getString("songmid")
                     musicitem.strMediaMid = musicdata.getString("strMediaMid")
+                    if (musicdata.getString("vid")!=""){
+                        musicitem.mvItem = MvItem()
+                        musicitem.mvItem!!.mvid = musicdata.getString("vid")
+                    }
                     getFileSize(musicitem ,musicdata)
                     musicitem.href = "https://y.qq.com/n/yqq/song/${musicitem.singmid}.html"
                     getSinger(musicitem, musicdata.getJSONArray("singer"))

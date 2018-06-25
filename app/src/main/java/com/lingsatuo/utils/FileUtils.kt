@@ -1,5 +1,8 @@
 package com.lingsatuo.utils
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Environment
 import com.lingsatuo.getqqmusic.MusicItem
 import java.io.File
@@ -18,5 +21,11 @@ object FileUtils {
             if(File(path+end).exists()) return path+end
         }
         return ""
+    }
+    fun startMvVideo(context: Context,path: String){
+        val intent = Intent(Intent.ACTION_VIEW)
+        val uri = Uri.parse(path)
+        intent.setDataAndType(uri,"video/*")
+        context.startActivity(intent)
     }
 }

@@ -1,5 +1,6 @@
 package com.lingsatuo.getqqmusic
 
+import com.lingsatuo.getqqmusic.mv.MvItem
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -25,6 +26,10 @@ class ItemGet(private var json: String,private var musicGroup: MusicGroup) {
             item.albumid = song.getInt("albumid")
             item.albummid = song.getString("albummid")
             item.strMediaMid = song.getString("strMediaMid")
+            if (song.getString("vid")!=""){
+                item.mvItem = MvItem()
+                item.mvItem!!.mvid = song.getString("vid")
+            }
             getFileSize(item,song)
             item.icon = item.albummid
             addSinger(item,song.getJSONArray("singer"))

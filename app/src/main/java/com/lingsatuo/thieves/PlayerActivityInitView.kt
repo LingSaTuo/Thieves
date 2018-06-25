@@ -13,6 +13,7 @@ import com.lingsatuo.donttouchme.are_u_understand.do_not_touch_me_yet.plz_go_bac
 import com.lingsatuo.getqqmusic.GetItemInfo
 import com.lingsatuo.getqqmusic.GetLrcQQMusic
 import com.lingsatuo.getqqmusic.MusicItem
+import com.lingsatuo.getqqmusic.mv.GetMvAbsPath
 import com.lingsatuo.service.MusicService
 import com.lingsatuo.utils.*
 import com.lingsatuo.view.KoolLrcView
@@ -42,10 +43,12 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
     private val statelistener: (Controller.Type) -> Unit = { type ->
         val item = MusicService.instance?.item
         if (item != null) {
-//            playerActivity.findViewById<XTextView>(R.id.player_header_item_title).text = item.title
-//            playerActivity.findViewById<XTextView>(R.id.player_header_item_subtitle).text = item.getSingers()
             playerActivity.findViewById<XTextView>(R.id.player_header_title).text = item.title
             playerActivity.findViewById<XTextView>(R.id.player_header_subtitle).text = item.getSingers()
+            if (item.mvItem != null)
+                playerActivity.findViewById<ImageView>(R.id.play_activity_mv).visibility = View.VISIBLE
+            else
+                playerActivity.findViewById<ImageView>(R.id.play_activity_mv).visibility = View.GONE
         }
         when (type) {
             Controller.Type.PAUSE -> {
@@ -65,7 +68,7 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
 
     private val mediaplayerbufferingupdate: (MediaPlayer, Int) -> Unit = { m, i ->
         if (m.isPlaying)
-        playerActivity.findViewById<MusicSeekBar>(R.id.player_header_seekbar)?.setSecondaryProgress((i / 100f * m.duration).toInt())
+            playerActivity.findViewById<MusicSeekBar>(R.id.player_header_seekbar)?.setSecondaryProgress((i / 100f * m.duration).toInt())
     }
     private val listener: (MusicItem) -> Unit = { item ->
         setAlbumIcon()
@@ -80,13 +83,6 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
             playerActivity.findViewById<ImageView>(R.id.player_activity_nodata).visibility = View.GONE
             playerActivity.findViewById<RecyclerView>(R.id.player_activity_list).visibility = View.VISIBLE
         } else {
-//            Glide.with(playerActivity)
-//                    .load("http://musicone-1253269015.coscd.myqcloud.com/nodata.jpg")
-//                    .asBitmap()
-//                    .placeholder(R.mipmap.donate)
-//                    .error(R.mipmap.donate)
-//                    .priority(Priority.HIGH)
-//                    .into(playerActivity.findViewById(R.id.player_activity_nodata))
         }
         adapter.setData(Controller.list)
         this.size = Controller.list.size
@@ -94,7 +90,7 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
         rv.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL)
         rv.adapter = adapter
         adapter.setOnItemClickListener { i, view ->
-            if (this.size!=Controller.list.size){
+            if (this.size != Controller.list.size) {
                 adapter.setData(Controller.list)
                 this.size = Controller.list.size
             }
@@ -127,15 +123,18 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
             if (item?.isloca == false) {
                 playerActivity.findViewById<ImageView>(R.id.play_activity_clone).visibility = View.VISIBLE
                 playerActivity.findViewById<ImageView>(R.id.play_activity_clone).setOnClickListener { v ->
-                    val item = MusicService.instance?.item
-                    if (item != null) {
-                        if (item.title != "")
-                            MusicDownPop(playerActivity, item).showDialog()
-                    }
+                    if (item.title != "")
+                        MusicDownPop(playerActivity, item).showDialog()
                 }
                 GetLrcQQMusic(MusicService.instance?.item!!, { lec, e ->
                     playerActivity.findViewById<KoolLrcView>(R.id.player_header_lrcview).setLrcStr(lec)
                 }).start()
+                if (item.mvItem != null) {
+                    playerActivity.findViewById<ImageView>(R.id.play_activity_mv).visibility = View.VISIBLE
+                    playerActivity.findViewById<ImageView>(R.id.play_activity_mv).setOnClickListener { v ->
+                        mvfailed(item)
+                    }
+                }
             }
             if (item != null) {
                 GetItemInfo(item, { e ->
@@ -152,6 +151,7 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
     }
 
     private fun setIcon(item: MusicItem) {
+        if (playerActivity.isDestroyed)return
         Glide.with(playerActivity)
                 .load(item.albumicon)
                 .asBitmap()
@@ -174,13 +174,6 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
     }
 
     private fun addListener() {
-//        val download = playerActivity.findViewById<ImageView>(R.id.player_activity_download)
-//        download.setOnClickListener {
-//            if (MusicService.instance?.item != null) {
-//                if (MusicService.instance?.item!!.title != "")
-//                    MusicDownPop(playerActivity, MusicService.instance?.item!!).show(playerActivity.findViewById<CardView>(R.id.play_card_root))
-//            }
-//        }
         playerActivity.findViewById<ImageView>(R.id.player_header_item_play_pause).setOnClickListener {
             Controller.listener.invoke(if (MusicService.player.isPlaying) Controller.Type.PAUSE else Controller.Type.PLAY)
         }
@@ -190,9 +183,6 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
         playerActivity.findViewById<ImageView>(R.id.player_header_item_next).setOnClickListener {
             Controller.listener.invoke(Controller.Type.NEXT)
         }
-//        playerActivity.findViewById<ImageView>(R.id.player_activity_show_list).setOnClickListener {
-//            PlayerActivityShowList(playerActivity).show(playerActivity.findViewById<CardView>(R.id.play_card_root))
-//        }
         playerActivity.findViewById<XTextView>(R.id.player_header_subtitle).setOnClickListener { v ->
             val item = MusicService.instance?.item
             if (item?.isloca == true) return@setOnClickListener
@@ -203,11 +193,8 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
             SharePop(playerActivity, v).show()
         }
         playerActivity.findViewById<ImageView>(R.id.player_activity_nodata).setOnClickListener {
-//            Toast.makeText(playerActivity,"有人告诉我，我的通宵付出不应该索求回报，我想，我是时候移除捐款了",Toast.LENGTH_LONG).show()
+            //            Toast.makeText(playerActivity,"有人告诉我，我的通宵付出不应该索求回报，我想，我是时候移除捐款了",Toast.LENGTH_LONG).show()
         }
-//        playerActivity.findViewById<ImageView>(R.id.player_activity_album_icon).setOnClickListener {
-//            FloatWindow(playerActivity).show()
-//        }
         dont_touch_me()
     }
 
@@ -227,5 +214,18 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
                 MusicService.player.seekTo(musicSeekBar.getProgress())
             }
         })
+    }
+
+    private fun mvfailed(item: MusicItem){
+        GetMvAbsPath(item.mvItem!!, { path, e ->
+            if (e == null) {
+                FileUtils.startMvVideo(playerActivity, path)
+            }else{
+                Toast.makeText(playerActivity,"当前歌曲MV没有第一通道资源",Toast.LENGTH_LONG).show()
+                val mv = item.mvItem!!
+                val paths = "${mv.startHref}${mv.lfilename}?sdtfrom=v1070&type=mp4&vkey=${mv.fvkey}${mv.other}"
+                FileUtils.startMvVideo(playerActivity, paths)
+            }
+        }).start()
     }
 }

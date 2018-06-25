@@ -88,9 +88,10 @@ class SearchActivity : BaseActivity() {
             }
 
             override fun onSuggestionClicked(searchSuggestion: SearchSuggestion?) {
-                this.onSearchAction(searchSuggestion?.body ?: key)
+                floatsearch.setSearchHint(searchSuggestion?.body ?: key)
                 floatsearch.clearSuggestions()
                 floatsearch.setSearchFocused(false)
+                this.onSearchAction(searchSuggestion?.body ?: key)
             }
         })
         val adapter = MSearchActivityRvAdapter(this)

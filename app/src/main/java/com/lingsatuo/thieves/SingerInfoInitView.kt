@@ -27,6 +27,7 @@ class SingerInfoInitView(private var singerInfoActivity : SingerInfoActivity) {
         adapter.addFragment(singer_info)
         adapter.notifyDataSetChanged()
         singerInfoActivity.findViewById<CollapsingToolbarLayout>(R.id.singer_info_ctl).title = singeritem.singer
+        if (!singerInfoActivity.isDestroyed)
         Glide.with(singerInfoActivity)
                 .load(singeritem.getSingerIcon())
                 .asBitmap()

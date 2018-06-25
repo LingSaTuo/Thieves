@@ -53,16 +53,18 @@ class FindUserList(private var user:UserRvAdapter.User?,private var listener:(Ar
         val creator = data.getJSONObject("creator")
         user.name = creator.getString("nick")
         user.usericon = creator.getString("headpic")
-        val list = data.getJSONArray("mymusic").getJSONObject(0)
-        user.cfinfowebhref = creator.getString("cfinfo")
         //喜欢
-        val group = MusicGroup()
-        group.disstid = list.getInt("id").toString()
-        group.icon = list.getString("picurl")
-        group.amount = list.getString("subtitle")
-        group.num = list.getInt("num0")
-        group.title = "我的喜欢"
-        user.list.add(group)
+        try {
+            val list = data.getJSONArray("mymusic").getJSONObject(0)
+            user.cfinfowebhref = creator.getString("cfinfo")
+            val group = MusicGroup()
+            group.disstid = list.getInt("id").toString()
+            group.icon = list.getString("picurl")
+            group.amount = list.getString("subtitle")
+            group.num = list.getInt("num0")
+            group.title = "我的喜欢"
+            user.list.add(group)
+        }catch (e:Throwable){}
         //列表
         val mydiss = data.getJSONObject("mydiss").getJSONArray("list")
         for (index in 0 until mydiss.length()){

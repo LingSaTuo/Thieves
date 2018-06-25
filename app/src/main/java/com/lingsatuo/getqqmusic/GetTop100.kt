@@ -1,5 +1,6 @@
 package com.lingsatuo.getqqmusic
 
+import com.lingsatuo.getqqmusic.mv.MvItem
 import com.lingsatuo.utils.NetWork
 import org.json.JSONArray
 import org.json.JSONObject
@@ -48,6 +49,10 @@ class GetTop100(private var lis:(Throwable?, ArrayList<MusicItem>)->Unit):Thread
             item.singmid = data.getString("songmid")
             item.title = data.getString("songname")
             item.strMediaMid = data.getString("strMediaMid")
+            if (data.getString("vid")!=""){
+                item.mvItem = MvItem()
+                item.mvItem!!.mvid = data.getString("vid")
+            }
             getFileSize(item,data)
             item.icon = item.albummid
             item.href = "https://y.qq.com/n/yqq/song/${item.singmid}.html"

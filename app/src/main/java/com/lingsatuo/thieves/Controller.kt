@@ -15,7 +15,8 @@ object Controller {
     init {
         bandProgress()
     }
-    private var error=0
+
+    private var error = 0
     private var errortime = 0L
 
     var list = ArrayList<MusicItem>()
@@ -76,14 +77,14 @@ object Controller {
     }
     private var mediaPlayer: MediaPlayer = MediaPlayer()
 
-    private fun canPlay():Boolean{
-        if(System.currentTimeMillis() - errortime <=100){
+    private fun canPlay(): Boolean {
+        if (System.currentTimeMillis() - errortime <= 100) {
             error++
             errortime = System.currentTimeMillis()
-        }else{
+        } else {
             error = 0
         }
-        if (error >2){
+        if (error > 2) {
             return false
         }
         return true
@@ -124,15 +125,16 @@ object Controller {
         if (mediaPlayer.isPlaying) mediaPlayer.stop()
         this.mediaPlayer = mediaPlayer
         mediaPlayer.setOnCompletionListener {
-            if(canPlay())
-            listener.invoke(Controller.Type.NEXT)
+            if (canPlay()) {
+                listener.invoke(Controller.Type.NEXT)
+            }
         }
         mediaPlayer.setOnErrorListener(null)
         mediaPlayer.setOnBufferingUpdateListener { mp, percent ->
             if (percent < 20) return@setOnBufferingUpdateListener
             for (index in 0 until bufferingUpdateListener.size) {
-                if (index < bufferingUpdateListener.size) {
-                    RunOnUiThread {
+                RunOnUiThread {
+                    if (index < bufferingUpdateListener.size) {
                         bufferingUpdateListener[index].invoke(mp, percent)
                     }
                 }

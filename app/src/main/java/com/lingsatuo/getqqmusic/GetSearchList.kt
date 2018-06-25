@@ -1,5 +1,6 @@
 package com.lingsatuo.getqqmusic
 
+import com.lingsatuo.getqqmusic.mv.MvItem
 import com.lingsatuo.utils.NetWork
 import org.json.JSONArray
 import org.json.JSONObject
@@ -37,6 +38,11 @@ class GetSearchList(private var keywords: String, private var page: Int, private
                 val obj = listi.getJSONObject(index)
                 val item = MusicItem()
                 item.singmid = obj.getString("mid")
+                if (obj.getJSONObject("mv").getInt("id")!=0){
+                    val mv = MvItem()
+                    mv.mvid = obj.getJSONObject("mv").getString("vid")
+                    item.mvItem = mv
+                }
                 item.strMediaMid = obj.getJSONObject("file").getString("strMediaMid")
                 getFileSize(item,obj.getJSONObject("file"))
                 item.singid = obj.getInt("id")

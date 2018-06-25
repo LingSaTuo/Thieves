@@ -52,6 +52,7 @@ class PlaylistActivityInitView(private var playlistActivity: PlaylistActivity) {
                 MusicService.instance?.start(item)
             }
         }
+        if (!playlistActivity.isDestroyed)
         Glide.with(playlistActivity)
                 .load(group.icon)
                 .asBitmap()

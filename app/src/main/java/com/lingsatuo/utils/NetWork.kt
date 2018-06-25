@@ -7,6 +7,8 @@ import java.net.HttpURLConnection
 import java.net.URL
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 
 class NetWork {
@@ -48,5 +50,26 @@ class NetWork {
             }
         }
         return false
+    }
+    fun get(href:String,cookie:String):String{
+        val url = URL(href)
+        val huc = url.openConnection() as HttpURLConnection
+        huc.doOutput = true
+        huc.doInput = true
+        huc.useCaches = false
+        huc.requestMethod = "GET"
+        huc.setRequestProperty("Cookie",cookie)
+        huc.connect()
+        val iis = huc.inputStream
+        val buffered = BufferedReader(InputStreamReader(iis, "UTF-8"))
+        var s = StringBuffer()
+        while (true) {
+            val line = buffered.readLine() ?: break
+            s.append(line)
+        }
+        buffered.close()
+        iis.close()
+        huc.disconnect()
+        return s.toString()
     }
 }

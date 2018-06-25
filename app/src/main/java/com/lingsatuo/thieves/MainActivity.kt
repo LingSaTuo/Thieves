@@ -53,11 +53,13 @@ class MainActivity : BaseActivity() {
         adapter.setData(MainActivityInitView.getLocalGroup())
         if (user.qqnum != "") {
             adapter.addData(user.list)
+            if(user.list.size==0)Toast.makeText(this,"QQ音乐内没有可用列表",Toast.LENGTH_LONG).show()
             drawer.findViewById<XTextView>(R.id.user_name).text = user.name
         } else {
             drawer.findViewById<XTextView>(R.id.user_name).text = "点击设置代理"
         }
         adapter.notifyDataSetChanged()
+        if (!isDestroyed)
         Glide.with(this)
                 .load(user.usericon)
                 .asBitmap()
@@ -180,7 +182,7 @@ class MainActivity : BaseActivity() {
 
     private fun setAlbum(path: String) {
         val img = findViewById<ImageView>(R.id.main_play_card_icon)
-        if (img != null) {
+        if (img != null&&!isDestroyed) {
             Glide.with(this)
                     .load(path)
                     .asBitmap()
