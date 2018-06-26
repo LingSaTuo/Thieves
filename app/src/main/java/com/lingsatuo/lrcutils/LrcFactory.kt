@@ -40,7 +40,7 @@ object LrcFactory {
                 val m = ts.split(":")[0]
                 val s = ts.split(":")[1].split(".")[0]
                 val ms = ts.split(":")[1].split(".")[1]
-                return m.toLong() * 60 * 1000 + s.toLong() * 1000 + ms.toLong() * 10
+                return m.toLong() * 60 * 1000 + s.toLong() * 1000
             }
             return 0L
         }

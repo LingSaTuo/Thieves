@@ -108,7 +108,7 @@
             android:src="@mipmap/last"
             android:tint="@color/colorPrimary" />
 
-        <com.lingsatuo.view.KoolLrcView
+        <com.lingsatuo.view.MusicLrcView
             android:layout_width="wrap_content"
             android:id="@+id/player_header_lrcview"
             android:layout_toStartOf="@id/player_header_item_last"

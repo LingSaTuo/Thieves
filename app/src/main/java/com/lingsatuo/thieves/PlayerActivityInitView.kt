@@ -1,7 +1,9 @@
 package com.lingsatuo.thieves
 
 import android.media.MediaPlayer
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.*
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -17,6 +19,7 @@ import com.lingsatuo.getqqmusic.mv.GetMvAbsPath
 import com.lingsatuo.service.MusicService
 import com.lingsatuo.utils.*
 import com.lingsatuo.view.KoolLrcView
+import com.lingsatuo.view.MusicLrcView
 import com.lingsatuo.widget.MusicSeekBar
 import com.lingsatuo.widget.XTextView
 import jp.wasabeef.glide.transformations.BlurTransformation
@@ -27,12 +30,24 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
     private var ontouch = false
     private var size = 0;
     private var dont_touch_me: (View) -> Unit = { v ->
-        I_LOVE_U.onClick(playerActivity, v)
+        val v = LayoutInflater.from(playerActivity).inflate(R.layout.lrctest,null,false)
+        val band :(Int,Int,String,String)->Unit= { c, d, n, r ->
+            v.findViewById<MusicLrcView>(R.id.musiclrc).setCurrTime(c.toLong())
+        }
+        AlertDialog.Builder(playerActivity)
+                .setView(v)
+                .show().setOnDismissListener{
+                    Controller.removeBandProgress(band)
+                }
+        GetLrcQQMusic(MusicService.instance?.item!!, { lec, e ->
+            v.findViewById<MusicLrcView>(R.id.musiclrc).setLrc(lec)
+        }).start()
+        Controller.bandProgress (band)
     }
 
     private val bandprogress: (Int, Int, String, String) -> Unit = { c, d, n, r ->
         seekBar?.setMax(d)
-        playerActivity.findViewById<KoolLrcView>(R.id.player_header_lrcview).setTimeMillisecond(c)
+        playerActivity.findViewById<MusicLrcView>(R.id.player_header_lrcview).setCurrTime(c.toLong())
 
 //        playerActivity.findViewById<XTextView>(R.id.player_header_seekbar).text = n
 //        playerActivity.findViewById<XTextView>(R.id.play_activity_seek_duration).text = r
@@ -57,7 +72,7 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
             else -> {
                 playerActivity.findViewById<ImageView>(R.id.player_header_item_play_pause).setImageResource(R.mipmap.topause)
                 GetLrcQQMusic(MusicService.instance?.item!!, { lec, e ->
-                    playerActivity.findViewById<KoolLrcView>(R.id.player_header_lrcview).setLrcStr(lec)
+                    playerActivity.findViewById<MusicLrcView>(R.id.player_header_lrcview).setLrc(lec)
                 }).start()
             }
         }
@@ -127,7 +142,8 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
                         MusicDownPop(playerActivity, item).showDialog()
                 }
                 GetLrcQQMusic(MusicService.instance?.item!!, { lec, e ->
-                    playerActivity.findViewById<KoolLrcView>(R.id.player_header_lrcview).setLrcStr(lec)
+                    playerActivity.findViewById<MusicLrcView>(R.id.player_header_lrcview).setTextSize(30f)
+                    playerActivity.findViewById<MusicLrcView>(R.id.player_header_lrcview).setLrc(lec)
                 }).start()
                 if (item.mvItem != null) {
                     playerActivity.findViewById<ImageView>(R.id.play_activity_mv).visibility = View.VISIBLE
@@ -217,6 +233,7 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
     }
 
     private fun mvfailed(item: MusicItem){
+        Toast.makeText(playerActivity,"获取中。。。",Toast.LENGTH_SHORT).show()
         GetMvAbsPath(item.mvItem!!, { path, e ->
             if (e == null) {
                 FileUtils.startMvVideo(playerActivity, path)
