@@ -19,13 +19,16 @@
                 android:layout_width="match_parent"
                 android:scaleType="centerCrop"
                 android:id="@+id/singer_info_header_icon"
-                android:foreground="@color/player_alpha"
                 android:src="@mipmap/back2"
                 android:layout_height="match_parent" />
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/player_alpha"
+                android:layout_height="match_parent"/>
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="?android:attr/actionBarSize"
                     app:layout_collapseMode="pin"
                     android:background="#00000000"
                     app:popupTheme="@style/AppTheme.PopupOverlay">
@@ -45,6 +48,7 @@
                         android:layout_gravity="end|center_vertical"
                         android:layout_marginEnd="10dp"
                         android:padding="10dp"
+                        android:visibility="gone"
                         android:src="@mipmap/share"
                         android:tint="@color/colorPrimary" />
                 </android.support.v7.widget.Toolbar>

@@ -21,7 +21,7 @@ class GetMusicAbsPath(private var item :MusicItem,private var quality:GetMusicFi
             val json = String(bytes)
             val key = getVkey(json)
             item.vkey = key
-            val path = "http://dl.stream.qqmusic.qq.com/" + item.filename + "?vkey=" + key + "&guid=" + vkg.getGuid()+"&uin="+vkg.getuin() + "&fromtag=" + vkg.getfromtag()
+            val path = "http://streamoc.music.tc.qq.com/" + item.filename + "?vkey=" + key + "&guid=" + vkg.getGuid()+"&uin="+vkg.getuin() + "&fromtag=" + vkg.getfromtag()
             RunOnUiThread{
                 println(path)
                 listener.invoke(path)

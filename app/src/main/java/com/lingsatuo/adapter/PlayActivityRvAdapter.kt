@@ -14,6 +14,7 @@ import com.bumptech.glide.Priority
 import com.lingsatuo.getqqmusic.MusicItem
 import com.lingsatuo.service.MusicService
 import com.lingsatuo.thieves.R
+import com.lingsatuo.utils.StartMV
 
 class PlayActivityRvAdapter(var context: Context) : RecyclerView.Adapter<ItemViewII>() {
     private var mdata = ArrayList<MusicItem>()
@@ -75,6 +76,15 @@ class ItemViewII(private var view: View, listener: (Int, View) -> Unit) : Recycl
             view.findViewById<ImageView>(R.id.playlist_item_more).setImageResource(R.mipmap.playing)
         } else
             view.findViewById<ImageView>(R.id.playlist_item_more).setImageResource(R.mipmap.more)
+
+        view.findViewById<ImageView>(R.id.playlist_item_mv).visibility = if (musicitem.mvItem != null) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+        view.findViewById<ImageView>(R.id.playlist_item_mv).setOnClickListener {
+            StartMV.start(view.context,musicitem)
+        }
     }
 
     fun setIcon(icon: String) {

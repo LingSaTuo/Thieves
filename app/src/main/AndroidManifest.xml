@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -51,24 +52,35 @@
             />
         <activity android:name="com.lingsatuo.wxapi.WXEntryActivity"
             android:exported="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             />
         <activity android:name=".AboutActivity"
             android:exported="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             />
         <activity android:name=".LocalActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             />
         <activity android:name=".Top100"
             android:exported="true"
             android:label="@string/app_name"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
+        <activity android:name=".LetUsSingSong"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             />
         <activity android:name=".SelectionUser"
             android:exported="true"
             android:label="@string/app_name"
-            />
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            >
+        </activity>
         <receiver android:name="com.lingsatuo.receiver.NotifictionReceiver">
             <intent-filter>
                 <action android:name="musicone_pause_play"/>

@@ -10,6 +10,7 @@ import com.bumptech.glide.Priority
 import com.lingsatuo.getqqmusic.MusicGroup
 import com.lingsatuo.thieves.R
 import com.lingsatuo.utils.AccLoginCenter
+import com.lingsatuo.widget.UserInfo
 import com.lingsatuo.widget.XTextView
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.ArrayList
@@ -49,6 +50,7 @@ class UserRvAdapter(var context: Context) : RecyclerView.Adapter<UserIcon>() {
     class User{
         var name = ""
         var qqnum=""
+        var cid = ""
         var usericon=""
         var cfinfowebhref = ""
         val list = ArrayList<MusicGroup>()

@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import com.lingsatuo.Typeface
 import com.lingsatuo.app.BaseActivity
+import kotlinx.android.synthetic.main.singer_info_activity.*
 
 class SingerInfoActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,5 +25,8 @@ class SingerInfoActivity : BaseActivity() {
         findViewById<CollapsingToolbarLayout>(R.id.singer_info_ctl).setExpandedTitleTypeface(Typeface.getType(this))
         supportActionBar?.title = "MusicOne"
         SingerInfoInitView(this).setView()
+        play_activity_menu.setOnClickListener {
+            onBackPressed()
+        }
     }
 }

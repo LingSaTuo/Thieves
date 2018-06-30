@@ -7,6 +7,8 @@ import java.util.ArrayList
 import java.util.regex.Pattern
 
 object LrcFactory {
+    private var lrctext = ""
+    fun getLrcText() = lrctext
     class Builder(private var lrcpath: String) {
         private val list = ArrayList<LrcLineBean>()
         fun build() {
@@ -21,6 +23,7 @@ object LrcFactory {
 
         fun getRoot() = list
         fun readLine(str: String) {
+            lrctext = str
             list.clear()
             val lines = str.split("\n")
             for (index in 0 until lines.size) {
@@ -28,6 +31,7 @@ object LrcFactory {
                 bean.lrc = getLine(lines[index])
                 bean.start = getTime(lines[index])
                 if (index+1<lines.size) bean.end = getTime(lines[index+1])
+                if (bean.end - bean.start<500 && bean.lrc == "")continue
                 list.add(bean)
             }
         }
@@ -56,7 +60,7 @@ object LrcFactory {
             } else {
                 return lines[1].replace("&apos;","'")
             }
-            return "--------"
+            return "无歌词，请欣赏~"
         }
     }
 }

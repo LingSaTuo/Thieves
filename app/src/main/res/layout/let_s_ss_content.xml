@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBack">
+
+    <RelativeLayout
+        android:id="@+id/let_us_yyyy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="24dp">
+
+        <RelativeLayout
+            android:id="@+id/lut_us_xxx"
+            android:layout_width="154dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="24dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/let_us_item_next"
+                style="@style/ImageViewStyle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:src="@mipmap/next"
+                android:tint="@color/img_tint" />
+
+            <ImageView
+                android:id="@+id/let_us_item_play_pause"
+                style="@style/ImageViewStyle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:layout_toStartOf="@id/let_us_item_next"
+                android:padding="10dp"
+                android:src="@mipmap/toplay"
+                android:tint="@color/img_tint" />
+
+            <ImageView
+                android:id="@+id/let_us_item_last"
+                style="@style/ImageViewStyle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:layout_toStartOf="@id/let_us_item_play_pause"
+                android:padding="10dp"
+                android:src="@mipmap/last"
+                android:tint="@color/img_tint" />
+        </RelativeLayout>
+
+        <com.lingsatuo.widget.MusicSeekBar
+            android:id="@+id/let_us_sing_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="24dp"
+            android:layout_toStartOf="@id/lut_us_xxx" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/let_us_yyyy"
+        android:layout_margin="24dp"
+        android:id="@+id/let_s_left_zzzz"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="6dp">
+        <ImageView
+            android:id="@+id/let_s_left_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+    </android.support.v7.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/let_us_yyyy"
+        android:layout_toEndOf="@id/let_s_left_zzzz">
+
+        <com.lingsatuo.view.MusicLrcView
+            android:id="@+id/let_s_right_lrcview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/let_us_sing_a_song_lrc_f_t" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/let_us_sing_a_song_lrc_f_b" />
+    </RelativeLayout>
+
+</RelativeLayout>

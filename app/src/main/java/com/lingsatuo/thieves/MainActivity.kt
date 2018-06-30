@@ -5,11 +5,9 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
-import android.os.Process
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AlertDialog
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.widget.ImageView
@@ -25,6 +23,7 @@ import com.lingsatuo.getqqmusic.GetItemInfo
 import com.lingsatuo.getqqmusic.RunOnUiThread
 import com.lingsatuo.service.MusicService
 import com.lingsatuo.utils.AccLoginCenter
+import com.lingsatuo.utils.ContinueUtils
 import com.lingsatuo.utils.SaveSatate
 import com.lingsatuo.widget.MusicProgressBarH
 import com.lingsatuo.widget.XTextView
@@ -53,7 +52,7 @@ class MainActivity : BaseActivity() {
         adapter.setData(MainActivityInitView.getLocalGroup())
         if (user.qqnum != "") {
             adapter.addData(user.list)
-            if(user.list.size==0)Toast.makeText(this,"QQ音乐内没有可用列表",Toast.LENGTH_LONG).show()
+            if(user.list.size==0)Toast.makeText(this,"私密歌单",Toast.LENGTH_LONG).show()
             drawer.findViewById<XTextView>(R.id.user_name).text = user.name
         } else {
             drawer.findViewById<XTextView>(R.id.user_name).text = "点击设置代理"
@@ -83,6 +82,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         mbph = findViewById(R.id.card_progress)
+        ContinueUtils.chaeckCanUse(this)
         if (MusicService.instance == null) {
             val intent = Intent(this, MusicService::class.java)
             startService(intent)
@@ -90,7 +90,7 @@ class MainActivity : BaseActivity() {
         setActivity()
         setSupportActionBar(findViewById(R.id.toolbar))
         setRootView(findViewById(R.id.root))
-        findViewById<XTextView>(R.id.title).setText(R.string.app_name)
+        findViewById<XTextView>(R.id.title).text = "请下载QQ音乐，支持正版"
         setDrawLayout()
         initView()
         addListener()
@@ -161,7 +161,7 @@ class MainActivity : BaseActivity() {
         GetPlaylist(this).getList()
         RxPermissions(this)
                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE
-                        , Manifest.permission.READ_PHONE_STATE)
+                        , Manifest.permission.READ_PHONE_STATE,Manifest.permission.ACCESS_WIFI_STATE)
                 .subscribe({ get ->
                     if (get) {
                         login()
@@ -175,7 +175,6 @@ class MainActivity : BaseActivity() {
             FindUserList(user, { list ->
                 if (list.size==1)
                 AccLoginCenter.invoke(list[0])
-                Toast.makeText(this,"代理接入",Toast.LENGTH_SHORT).show()
             }).start()
         }
     }

@@ -14,9 +14,11 @@
             android:id="@+id/player_activity_background_image"
             android:layout_width="match_parent"
             android:scaleType="centerCrop"
-            android:layout_height="match_parent"
-            android:foreground="@color/player_alpha" />
-
+            android:layout_height="match_parent" />
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/player_alpha"
+            android:layout_height="match_parent"/>
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
@@ -39,7 +41,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="start|center_vertical"
                     android:padding="10dp"
-                    android:src="@mipmap/menu"
+                    android:src="@mipmap/lan"
                     android:tint="@color/colorPrimary" />
                 <ImageView
                     android:id="@+id/play_activity_mv"

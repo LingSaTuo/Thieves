@@ -15,6 +15,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_marginTop="16dp"
         android:layout_height="wrap_content"
         android:fillViewport="true">
 
@@ -24,6 +25,20 @@
             android:id="@+id/down_root"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:id="@+id/dl_lrc"
+                style="@style/DownloadLLStyle"
+                android:visibility="visible"
+                >
+
+                <com.lingsatuo.widget.XTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="14dp"
+                    android:gravity="center_vertical"
+                    android:text="歌词文件（LRC）"
+                    android:textColor="@color/button_textColor" />
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/dl_m4a_l"
                 style="@style/DownloadLLStyle">

@@ -43,7 +43,7 @@ class MusicItem : Serializable {
         for (index in 0 until singer.size) {
             str.append(singer[index].singer)
             if (index != singer.size - 1)
-                str.append(" / ")
+                str.append(" ╱ ")
         }
         return str.toString()
     }

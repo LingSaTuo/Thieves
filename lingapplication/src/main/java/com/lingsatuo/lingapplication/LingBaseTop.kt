@@ -46,8 +46,11 @@ open class LingBaseTop : Application() {
         }
         fun exitApp(){
             for (activity in list){
-                activity.onBackPressed()
-                activity.finish()
+                if (activity.isDestroyed)continue
+                try {
+                    activity.onBackPressed()
+                    activity.finish()
+                }catch (e:Throwable){}
             }
         }
     }

@@ -75,6 +75,7 @@ class MusicService : Service() {
     }
 
     fun start() {
+        am!!.requestAudioFocus(afChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
         player.start()
     }
 

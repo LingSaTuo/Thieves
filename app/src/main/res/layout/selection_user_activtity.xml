@@ -45,6 +45,17 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:textColor="@color/button_textColor" />
+                <ImageView
+                    android:id="@+id/selection_login_qq"
+                    style="@style/ImageViewStyle"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:visibility="gone"
+                    android:padding="10dp"
+                    android:src="@mipmap/share"
+                    android:tint="@color/button_textColor" />
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 

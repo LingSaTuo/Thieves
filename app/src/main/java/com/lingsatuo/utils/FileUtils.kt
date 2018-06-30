@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Environment
 import com.lingsatuo.getqqmusic.MusicItem
 import java.io.File
+import java.io.FileOutputStream
 
 object FileUtils {
     fun musicFileExists(item:MusicItem): String {
@@ -15,7 +16,7 @@ object FileUtils {
     }
     private fun myExists(path:String):String{
         val ends = arrayListOf(
-                "mp3","ogg","flac","ape"
+                "flac","mp3","ogg","ape","m4a"
         )
         for (end in ends){
             if(File(path+end).exists()) return path+end
@@ -28,4 +29,13 @@ object FileUtils {
         intent.setDataAndType(uri,"video/*")
         context.startActivity(intent)
     }
+    fun write(path:String,str:String){
+        val f = File(path)
+        if (!f.parentFile.exists())f.parentFile.mkdirs()
+        if (!f.exists())f.createNewFile()
+        val out = FileOutputStream(f)
+        out.write(str.toByteArray())
+        out.close()
+    }
+    fun read(path:String):ByteArray =  File(path).readBytes()
 }

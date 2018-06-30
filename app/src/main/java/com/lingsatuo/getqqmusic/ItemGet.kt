@@ -20,24 +20,26 @@ class ItemGet(private var json: String,private var musicGroup: MusicGroup) {
         musicGroup.num = cdlist.getInt("songnum")
         val songlist = cdlist.getJSONArray("songlist")
         for (index in 0 until songlist.length()){
-            val song = songlist.getJSONObject(index)
-            val item = MusicItem()
-            item.album = song.getString("albumname")
-            item.albumid = song.getInt("albumid")
-            item.albummid = song.getString("albummid")
-            item.strMediaMid = song.getString("strMediaMid")
-            if (song.getString("vid")!=""){
-                item.mvItem = MvItem()
-                item.mvItem!!.mvid = song.getString("vid")
-            }
-            getFileSize(item,song)
-            item.icon = item.albummid
-            addSinger(item,song.getJSONArray("singer"))
-            item.singid = song.getInt("songid")
-            item.singmid = song.getString("songmid")
-            item.title = song.getString("songname")
-            item.href = "https://y.qq.com/n/yqq/song/${item.singmid}.html"
-            list.add(item)
+            try {
+                val song = songlist.getJSONObject(index)
+                val item = MusicItem()
+                item.album = song.getString("albumname")
+                item.albumid = song.getInt("albumid")
+                item.albummid = song.getString("albummid")
+                item.strMediaMid = song.getString("strMediaMid")
+                if (song.getString("vid") != "") {
+                    item.mvItem = MvItem()
+                    item.mvItem!!.mvid = song.getString("vid")
+                }
+                getFileSize(item, song)
+                item.icon = item.albummid
+                addSinger(item, song.getJSONArray("singer"))
+                item.singid = song.getInt("songid")
+                item.singmid = song.getString("songmid")
+                item.title = song.getString("songname")
+                item.href = "https://y.qq.com/n/yqq/song/${item.singmid}.html"
+                list.add(item)
+            }catch (e:Throwable){continue}
         }
     }
 

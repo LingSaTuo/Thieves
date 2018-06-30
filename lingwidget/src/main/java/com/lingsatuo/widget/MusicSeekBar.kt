@@ -48,6 +48,12 @@ class MusicSeekBar : View {
         sliderPaint.isAntiAlias = true
         secondaryProgressPaint.isAntiAlias = true
     }
+    fun setColor(background:Int,secondary:Int,progress:Int,slider:Int){
+        backgroudPaint.color = background
+        secondaryProgressPaint.color = secondary
+        progressPaint.color = progress
+        sliderPaint.color = slider
+    }
     fun setMax(max: Int) {
         this.max = max
     }

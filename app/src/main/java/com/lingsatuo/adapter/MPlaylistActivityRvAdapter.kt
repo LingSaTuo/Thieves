@@ -13,11 +13,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.lingsatuo.getqqmusic.MusicItem
+import com.lingsatuo.getqqmusic.mv.GetMvAbsPath
 import com.lingsatuo.service.MusicService
 import com.lingsatuo.thieves.R
+import com.lingsatuo.utils.FileUtils
+import com.lingsatuo.utils.MusicMoreInfoPop
+import com.lingsatuo.utils.StartMV
 
 open class MPlaylistActivityRvAdapter(var context: Activity) : RecyclerView.Adapter<ItemViewI>() {
     private var mdata = ArrayList<MusicItem>()
@@ -58,8 +63,8 @@ open class MPlaylistActivityRvAdapter(var context: Activity) : RecyclerView.Adap
 
     //当view划出屏幕时清除icon控件，避免封面错位
     override fun onViewRecycled(holder: ItemViewI) {
-        if (holder.getIcon()!=null)
-        Glide.clear(holder.getIcon())
+        if (holder.getIcon() != null)
+            Glide.clear(holder.getIcon())
         super.onViewRecycled(holder)
     }
 
@@ -75,7 +80,7 @@ open class MPlaylistActivityRvAdapter(var context: Activity) : RecyclerView.Adap
 
     override fun onBindViewHolder(holder: ItemViewI, position: Int) {
         if (position == 0) return
-        if (position == mdata.size-1){
+        if (position == mdata.size - 1) {
             if (loadingfinish) {
                 loadingfinish = false
                 loadingmore.invoke()
@@ -86,20 +91,27 @@ open class MPlaylistActivityRvAdapter(var context: Activity) : RecyclerView.Adap
 }
 
 class ItemViewI(private var view: View, listener: (Int, View) -> Unit) : RecyclerView.ViewHolder(view) {
-
     fun setMusicGroup(musicitem: MusicItem) {
         setTitle(musicitem.title)
         setSubTitle(musicitem.getSingers() + " - " + musicitem.album)
         view.findViewById<ImageView>(R.id.list_item_album_icon).setImageResource(R.mipmap.album_d)
         setIcon(musicitem.icon)
-        if (MusicService.instance?.item?.singmid == musicitem.singmid){
+        if (MusicService.instance?.item?.singmid == musicitem.singmid) {
             view.findViewById<TextView>(R.id.playlist_item_title).setTextColor(view.context.resources.getColor(R.color.colorAccent))
             view.findViewById<TextView>(R.id.playlist_item_subtitle).setTextColor(view.context.resources.getColor(R.color.sub_colorAcc))
-            view.findViewById<ImageView>(R.id.playlist_item_more).imageTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context,R.color.colorAccent))
-        }else{
+            view.findViewById<ImageView>(R.id.playlist_item_more).imageTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.colorAccent))
+        } else {
             view.findViewById<TextView>(R.id.playlist_item_title).setTextColor(view.context.resources.getColor(R.color.button_textColor))
             view.findViewById<TextView>(R.id.playlist_item_subtitle).setTextColor(view.context.resources.getColor(R.color.subbutton_textColor))
-            view.findViewById<ImageView>(R.id.playlist_item_more).imageTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context,R.color.button_textColor))
+            view.findViewById<ImageView>(R.id.playlist_item_more).imageTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.button_textColor))
+        }
+        view.findViewById<ImageView>(R.id.playlist_item_mv).visibility = if (musicitem.mvItem != null) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+        view.findViewById<ImageView>(R.id.playlist_item_mv).setOnClickListener {
+            StartMV.start(view.context,musicitem)
         }
     }
 
@@ -125,6 +137,9 @@ class ItemViewI(private var view: View, listener: (Int, View) -> Unit) : Recycle
     init {
         view.findViewById<LinearLayout>(R.id.play_activity_list_item)?.setOnClickListener {
             listener.invoke(position, view)
+        }
+        view.findViewById<ImageView>(R.id.playlist_item_more)?.setOnClickListener {
+            listener.invoke(position, view.findViewById<ImageView>(R.id.playlist_item_more))
         }
     }
 }

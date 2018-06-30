@@ -40,7 +40,7 @@
                 android:id="@+id/playlist_item_title"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginEnd="66dp"
+                android:layout_marginEnd="116dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:lines="1"
@@ -52,7 +52,7 @@
                 android:id="@+id/playlist_item_subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginEnd="66dp"
+                android:layout_marginEnd="116dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:lines="1"
@@ -63,7 +63,7 @@
             <com.lingsatuo.widget.XTextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginEnd="66dp"
+                android:layout_marginEnd="116dp"
                 android:layout_weight="3"
                 android:text="ThirdTitle"
                 android:textColor="@color/button_textColor"
@@ -84,6 +84,21 @@
             android:padding="8dp"
             android:scaleType="centerInside"
             android:src="@mipmap/more"
+            android:tint="@color/img_tint" />
+
+        <ImageView
+            android:id="@+id/playlist_item_mv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="gone"
+            android:layout_toStartOf="@id/playlist_item_more"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/mv_item"
             android:tint="@color/img_tint" />
     </RelativeLayout>
 </LinearLayout>

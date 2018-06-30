@@ -1,5 +1,7 @@
 package com.lingsatuo.thieves
 
+import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.*
@@ -11,14 +13,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.lingsatuo.adapter.PlayActivityRvAdapter
-import com.lingsatuo.donttouchme.are_u_understand.do_not_touch_me_yet.plz_go_back.uh_huh.what_are_u_doing.fucking_deep.are_u_gay.why_dont_u_go_back.I_LOVE_U
+import com.lingsatuo.floatwindow.FloatWindow
 import com.lingsatuo.getqqmusic.GetItemInfo
 import com.lingsatuo.getqqmusic.GetLrcQQMusic
 import com.lingsatuo.getqqmusic.MusicItem
 import com.lingsatuo.getqqmusic.mv.GetMvAbsPath
 import com.lingsatuo.service.MusicService
 import com.lingsatuo.utils.*
-import com.lingsatuo.view.KoolLrcView
 import com.lingsatuo.view.MusicLrcView
 import com.lingsatuo.widget.MusicSeekBar
 import com.lingsatuo.widget.XTextView
@@ -30,19 +31,8 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
     private var ontouch = false
     private var size = 0;
     private var dont_touch_me: (View) -> Unit = { v ->
-        val v = LayoutInflater.from(playerActivity).inflate(R.layout.lrctest,null,false)
-        val band :(Int,Int,String,String)->Unit= { c, d, n, r ->
-            v.findViewById<MusicLrcView>(R.id.musiclrc).setCurrTime(c.toLong())
-        }
-        AlertDialog.Builder(playerActivity)
-                .setView(v)
-                .show().setOnDismissListener{
-                    Controller.removeBandProgress(band)
-                }
-        GetLrcQQMusic(MusicService.instance?.item!!, { lec, e ->
-            v.findViewById<MusicLrcView>(R.id.musiclrc).setLrc(lec)
-        }).start()
-        Controller.bandProgress (band)
+       val intent = Intent(playerActivity,LetUsSingSong::class.java)
+        playerActivity.startActivity(intent)
     }
 
     private val bandprogress: (Int, Int, String, String) -> Unit = { c, d, n, r ->
@@ -91,6 +81,7 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
 
     fun initView() {
         playerActivity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+       // playerActivity.findViewById<ImageView>(R.id.player_activity_background_image).foreground = ColorDrawable(R.color.player_alpha)
         seekBar = playerActivity.findViewById(R.id.player_header_seekbar)
         setAlbumIcon()
         val adapter = PlayActivityRvAdapter(playerActivity)
@@ -111,7 +102,7 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
             }
             when (view.id) {
                 R.id.playlist_item_more -> {
-
+                    MusicMoreInfoPop(playerActivity,adapter.getItem(i)).show()
                 }
                 else -> {
                     Controller.index = i - 2
@@ -136,23 +127,19 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
             playerActivity.findViewById<XTextView>(R.id.player_header_title).text = if (item?.title == "") "MusicOne" else item?.title
             playerActivity.findViewById<XTextView>(R.id.player_header_subtitle).text = if (item?.singer?.size == 0) "King丶ST" else item?.getSingers()
             if (item?.isloca == false) {
+                if (item.mvItem != null) {
+                    playerActivity.findViewById<ImageView>(R.id.play_activity_mv).visibility = View.VISIBLE
+                    playerActivity.findViewById<ImageView>(R.id.play_activity_mv).setOnClickListener { v ->
+                        StartMV.start(playerActivity,item)
+                    }
+                }
+            }
+            if (item != null) {
                 playerActivity.findViewById<ImageView>(R.id.play_activity_clone).visibility = View.VISIBLE
                 playerActivity.findViewById<ImageView>(R.id.play_activity_clone).setOnClickListener { v ->
                     if (item.title != "")
                         MusicDownPop(playerActivity, item).showDialog()
                 }
-                GetLrcQQMusic(MusicService.instance?.item!!, { lec, e ->
-                    playerActivity.findViewById<MusicLrcView>(R.id.player_header_lrcview).setTextSize(30f)
-                    playerActivity.findViewById<MusicLrcView>(R.id.player_header_lrcview).setLrc(lec)
-                }).start()
-                if (item.mvItem != null) {
-                    playerActivity.findViewById<ImageView>(R.id.play_activity_mv).visibility = View.VISIBLE
-                    playerActivity.findViewById<ImageView>(R.id.play_activity_mv).setOnClickListener { v ->
-                        mvfailed(item)
-                    }
-                }
-            }
-            if (item != null) {
                 GetItemInfo(item, { e ->
                     run {
                         if (e == null) {
@@ -161,6 +148,10 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
                             e.printStackTrace()
                         }
                     }
+                }).start()
+                GetLrcQQMusic(MusicService.instance?.item!!, { lec, e ->
+                    playerActivity.findViewById<MusicLrcView>(R.id.player_header_lrcview).setTextSize(30f)
+                    playerActivity.findViewById<MusicLrcView>(R.id.player_header_lrcview).setLrc(lec)
                 }).start()
             }
         }
@@ -211,6 +202,9 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
         playerActivity.findViewById<ImageView>(R.id.player_activity_nodata).setOnClickListener {
             //            Toast.makeText(playerActivity,"有人告诉我，我的通宵付出不应该索求回报，我想，我是时候移除捐款了",Toast.LENGTH_LONG).show()
         }
+        playerActivity.findViewById<ImageView>(R.id.player_header_icon).setOnClickListener {
+            FloatWindow(playerActivity).show()
+        }
         dont_touch_me()
     }
 
@@ -230,19 +224,5 @@ class PlayerActivityInitView(private var playerActivity: PlayerActivity) {
                 MusicService.player.seekTo(musicSeekBar.getProgress())
             }
         })
-    }
-
-    private fun mvfailed(item: MusicItem){
-        Toast.makeText(playerActivity,"获取中。。。",Toast.LENGTH_SHORT).show()
-        GetMvAbsPath(item.mvItem!!, { path, e ->
-            if (e == null) {
-                FileUtils.startMvVideo(playerActivity, path)
-            }else{
-                Toast.makeText(playerActivity,"当前歌曲MV没有第一通道资源",Toast.LENGTH_LONG).show()
-                val mv = item.mvItem!!
-                val paths = "${mv.startHref}${mv.lfilename}?sdtfrom=v1070&type=mp4&vkey=${mv.fvkey}${mv.other}"
-                FileUtils.startMvVideo(playerActivity, paths)
-            }
-        }).start()
     }
 }

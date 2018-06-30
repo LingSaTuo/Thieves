@@ -12,6 +12,7 @@ import com.bumptech.glide.Priority
 import com.lingsatuo.adapter.MPlaylistActivityRvAdapter
 import com.lingsatuo.getqqmusic.*
 import com.lingsatuo.service.MusicService
+import com.lingsatuo.utils.MusicMoreInfoPop
 import com.lingsatuo.widget.XTextView
 
 class PlaylistActivityInitView(private var playlistActivity: PlaylistActivity) {
@@ -22,6 +23,7 @@ class PlaylistActivityInitView(private var playlistActivity: PlaylistActivity) {
         run {
             if (a != null) {
                 playlistActivity.findViewById<XTextView>(R.id.playlist_avtivity_loading_error).text = a.toString()
+                a.printStackTrace()
             }
             if (b.size < 1) return@run
             l = b
@@ -41,24 +43,31 @@ class PlaylistActivityInitView(private var playlistActivity: PlaylistActivity) {
         val head = LayoutInflater.from(playlistActivity).inflate(R.layout.playlist_rv_head, null, false)
         adapter.setOnItemClickListener { i, view ->
             val item = adapter.getItem(i)
-            adapter.notifyDataSetChanged()
-            if (item.singmid == MusicService.instance?.item?.singmid) {
-                val intent = Intent(playlistActivity, PlayerActivity::class.java)
-                playlistActivity.startActivity(intent)
-            } else {
-                Controller.index = i-1
-                Controller.list.clear()
-                Controller.list.addAll(l)
-                MusicService.instance?.start(item)
+            when (view.id) {
+                R.id.playlist_item_more -> {
+                    MusicMoreInfoPop(playlistActivity,item).show()
+                }
+                else -> {
+                    if (item.singmid == MusicService.instance?.item?.singmid) {
+                        val intent = Intent(playlistActivity, PlayerActivity::class.java)
+                        playlistActivity.startActivity(intent)
+                    } else {
+                        Controller.index = i - 1
+                        Controller.list.clear()
+                        Controller.list.addAll(l)
+                        MusicService.instance?.start(item)
+                    }
+                }
             }
+            adapter.notifyDataSetChanged()
         }
         if (!playlistActivity.isDestroyed)
-        Glide.with(playlistActivity)
-                .load(group.icon)
-                .asBitmap()
-                .placeholder(R.mipmap.loading)
-                .priority(Priority.HIGH)
-                .into(head.findViewById(R.id.play_list_head))
-        MusicItemGet(listener,group).start()
+            Glide.with(playlistActivity)
+                    .load(group.icon)
+                    .asBitmap()
+                    .placeholder(R.mipmap.loading)
+                    .priority(Priority.HIGH)
+                    .into(head.findViewById(R.id.play_list_head))
+        MusicItemGet(listener, group).start()
     }
 }

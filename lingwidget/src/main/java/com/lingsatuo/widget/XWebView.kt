@@ -24,37 +24,46 @@ class XWebView : WebView {
     companion object {
         val KEY = "PLAYER_URL"
     }
-
+    var loginhref = ""
     private var mheight = 0
     private var source = ""
     private var finished = false
     private var listener: () -> Unit = {}
     private var errorListener: (Throwable) -> Unit = { e -> }
     private var newConfig: Configuration? = null
-
+    private var loginlistener :(String)->Unit =  {href->
+        println(href+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+    }
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attributeSet: AttributeSet?) : this(context, attributeSet, 0)
     @SuppressLint("SetJavaScriptEnabled", "AddJavascriptInterface")
     constructor(context: Context, attributeSet: AttributeSet?, def: Int) : super(context, attributeSet, def) {
         settings.javaScriptEnabled = true
         settings.loadWithOverviewMode = true
-        settings.savePassword = false
-        settings.saveFormData = false
+        settings.savePassword = true
+        settings.saveFormData = true
         settings.allowFileAccess = true
         settings.useWideViewPort = true
         settings.setAppCachePath(context.cacheDir.absolutePath)
         settings.domStorageEnabled = true
         settings.setAppCacheEnabled(true)
-
         settings.setSupportZoom(true)
         settings.userAgentString = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0"
-        settings.loadsImagesAutomatically = false
         scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
         settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
-        settings.builtInZoomControls = false
+        settings.builtInZoomControls = true
+        settings.displayZoomControls = false
         settings.pluginState = WebSettings.PluginState.ON
         addJavascriptInterface(InJavaScriptLocalObj(), "local_obj")
         val webViewClient = object : WebViewClient() {
+            override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?): WebResourceResponse? {
+                println(request?.url?.toString()+"CCCCCCCCCCCCCCCCCCCCCCCCCCCCC")
+                if(request?.url?.toString()?.startsWith("https://c.y.qq.com/rsc/fcgi-bin/fcg_get_profile_homepage.fcg") == true){
+                    loginhref = request.url.toString()
+                    loginlistener.invoke(loginhref)
+                }
+                return super.shouldInterceptRequest(view, request)
+            }
             override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
                     handler?.proceed()
                 if (error!=null){
@@ -119,7 +128,9 @@ class XWebView : WebView {
     fun fullScreen() {
         //loadUrl("javascript:_fullscreen")
     }
-
+    fun addOnLoginListener(login:(String)->Unit){
+        this.loginlistener = login
+    }
     fun getSource() = source
     internal inner class InJavaScriptLocalObj {
         @JavascriptInterface
@@ -131,7 +142,6 @@ class XWebView : WebView {
           //  load("about:blank;")
         }
     }
-
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         if (mheight != 0 && measuredHeight > mheight && newConfig?.orientation == Configuration.ORIENTATION_PORTRAIT) {

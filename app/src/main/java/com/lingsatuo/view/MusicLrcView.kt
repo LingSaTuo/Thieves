@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
-import android.os.Handler
 import android.util.AttributeSet
 import android.view.View
 import com.lingsatuo.musiclrc.LrcFactory
@@ -47,6 +46,10 @@ class MusicLrcView : View {
         defPaint.textSize = textsize
         nowLinePaint.textSize = textsize
     }
+    fun setColor(colorDef:Int,heigh:Int){
+        nowLinePaint.color = heigh
+        defPaint.color = colorDef
+    }
     fun setCurrTime(time: Long) {
         this.time = time
         for (lrc in lrclist) {
@@ -78,7 +81,7 @@ class MusicLrcView : View {
         if (canvas == null) return
         var height = paddingTop * 1f
         for (lrc in lrclist) {
-            height += lineHeight + 20f
+            height += lineHeight*2
             if (lrc == lrcLineBean) {
                 if (lrc != indexline) {
                     val y = height.toInt() - lineHeight
@@ -95,9 +98,8 @@ class MusicLrcView : View {
     private var ani: ValueAnimator? = null
     private fun scroll(y: Int) {
         if (ani?.isRunning == true) ani?.end()
-        if (scrollY >= y) return
         val now = y - lineHeight
-        ani = ValueAnimator.ofFloat(lineHeight + 20f).setDuration(500)
+        ani = ValueAnimator.ofFloat(lineHeight*2f).setDuration(500)
         ani!!.addUpdateListener { an ->
             if (an.animatedValue as Float != 0f)
                 scrollY = (now + (an.animatedValue as Float)).toInt()

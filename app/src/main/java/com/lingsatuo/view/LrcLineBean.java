@@ -3,7 +3,7 @@ package com.lingsatuo.view;
 public class LrcLineBean {
     private String lrc;
     private long start;
-    private long end;
+    private long end = 1000000;
 
     public LrcLineBean() {
     }

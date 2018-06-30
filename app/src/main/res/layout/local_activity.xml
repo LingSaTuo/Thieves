@@ -53,8 +53,14 @@
             android:layout_height="match_parent">
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:id="@+id/local_list"
                 android:layout_height="match_parent"/>
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/loading_local"
+                android:layout_height="wrap_content" />
         </RelativeLayout>
     </android.support.design.widget.CoordinatorLayout>
 

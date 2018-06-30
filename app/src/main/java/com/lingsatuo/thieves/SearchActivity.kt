@@ -20,6 +20,7 @@ import com.lingsatuo.getqqmusic.GetSmartBox
 import com.lingsatuo.getqqmusic.MusicItem
 import com.lingsatuo.service.MusicService
 import com.lingsatuo.utils.LoadingMorePop
+import com.lingsatuo.utils.MusicMoreInfoPop
 import com.lingsatuo.widget.XTextView
 
 class SearchActivity : BaseActivity() {
@@ -107,15 +108,23 @@ class SearchActivity : BaseActivity() {
         }
         adapter.setOnItemClickListener { i, view ->
             val item = adapter.getItem(i)
-            if (item.singmid == MusicService.instance?.item?.singmid) {
-                val intent = Intent(this, PlayerActivity::class.java)
-                startActivity(intent)
-            } else {
-                Controller.index = i-1
-                Controller.list = list
-                MusicService.instance?.start(item)
-                adapter.notifyDataSetChanged()
+            when (view.id) {
+                R.id.playlist_item_more -> {
+                    MusicMoreInfoPop(this@SearchActivity,item).show()
+                }
+                else -> {
+                    if (item.singmid == MusicService.instance?.item?.singmid) {
+                        val intent = Intent(this@SearchActivity, PlayerActivity::class.java)
+                        this@SearchActivity.startActivity(intent)
+                    } else {
+                        Controller.index = i - 1
+                        Controller.list.clear()
+                        Controller.list.addAll(list)
+                        MusicService.instance?.start(item)
+                    }
+                }
             }
+            adapter.notifyDataSetChanged()
         }
     }
 
